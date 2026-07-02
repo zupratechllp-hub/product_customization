@@ -1,6 +1,7 @@
 (function () {
   const titleToggleClass = "custom-title-sidebar-toggle";
   const originalToggleClass = "custom-original-sidebar-toggle";
+  const brandClass = "custom-zupra-brand";
   let scheduleTimers = [];
 
   function getTitleArea() {
@@ -131,9 +132,68 @@
     titleArea.insertBefore(toggle, titleText);
   }
 
+  function findNavbarBrand() {
+    return document.querySelector(".navbar .navbar-brand, .navbar-brand, .app-logo, .navbar-home");
+  }
+
+  function applyBranding() {
+    const brand = findNavbarBrand();
+
+    if (!brand || brand.classList.contains(brandClass)) {
+      return;
+    }
+
+    brand.classList.add(brandClass);
+    brand.setAttribute("aria-label", "Zupra Tech");
+    brand.innerHTML = [
+      '<span class="custom-zupra-brand-logo" aria-hidden="true">Z</span>',
+      '<span class="custom-zupra-brand-name">Zupra Tech</span>',
+    ].join("");
+  }
+
+  function updateSidebarContext() {
+    const isListViewPage = Boolean(
+      document.querySelector(".frappe-list, .list-view, .list-row-container, .list-paging-area, .filter-button, .sort-selector")
+    );
+    const isFormViewPage = Boolean(
+      document.querySelector(".form-layout, .form-page, .std-form-layout")
+    ) && !isListViewPage;
+    const route = window.frappe && typeof frappe.get_route === "function" ? frappe.get_route() : [];
+    const routeText = (Array.isArray(route) ? route.join("/") : String(route || "")).toLowerCase();
+    const pathText = window.location.pathname.toLowerCase();
+    const hashText = window.location.hash.toLowerCase();
+    const titleText = (getTitleText(getTitleArea())?.textContent || "").trim().toLowerCase();
+    const isQuotationListPage = isListViewPage && (
+      routeText.includes("quotation") ||
+      pathText.includes("/app/quotation") ||
+      hashText.includes("quotation") ||
+      titleText === "quotation"
+    );
+
+    document.body.classList.toggle("custom-list-view-page", isListViewPage);
+    document.body.classList.toggle("custom-form-view-page", isFormViewPage);
+    document.body.classList.toggle("custom-quotation-list-page", isQuotationListPage);
+
+    document.querySelectorAll(".layout-side-section").forEach((section) => {
+      const sidebarText = (section.textContent || "").toLowerCase();
+      const isListSidebar = Boolean(
+        section.querySelector(".list-filters, .filter-section, .filter-area, .save-filter-section") ||
+        sidebarText.includes("filter by") ||
+        sidebarText.includes("save filter")
+      );
+
+      section.classList.toggle("custom-list-side-section", isListSidebar);
+      section.classList.toggle("custom-module-side-section", !isListSidebar);
+    });
+  }
+
   function scheduleMove() {
     scheduleTimers.forEach((timer) => clearTimeout(timer));
-    scheduleTimers = [0, 100, 300, 700].map((delay) => setTimeout(moveSidebarToggle, delay));
+    scheduleTimers = [0, 100, 300, 700].map((delay) => setTimeout(() => {
+      moveSidebarToggle();
+      applyBranding();
+      updateSidebarContext();
+    }, delay));
   }
 
   document.addEventListener("DOMContentLoaded", scheduleMove);
