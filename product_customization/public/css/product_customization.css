@@ -384,16 +384,44 @@ body,
 }
 
 @media (min-width: 992px) {
-  body:has(.layout-side-section:not(.hide-sidebar):not(.collapsed)) .page-head {
+  /* On non-form pages, offset content by sidebar width */
+  body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section:not(.hide-sidebar):not(.collapsed)) .page-head {
     margin-left: var(--product-theme-sidebar-width, 248px) !important;
     width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
     max-width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
   }
 
-  body:has(.layout-side-section:not(.hide-sidebar):not(.collapsed)) .layout-main {
+  body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section:not(.hide-sidebar):not(.collapsed)) .layout-main {
     margin-left: var(--product-theme-sidebar-width, 248px) !important;
     width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
     max-width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
+  }
+
+  /* On form pages, center the page-head and layout-main */
+  body[data-route^="Form/"] .page-head,
+  body.custom-form-view-page:not(.custom-list-view-page) .page-head {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 960px !important;
+    width: min(960px, calc(100% - 48px)) !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  body[data-route^="Form/"] .layout-main,
+  body.custom-form-view-page:not(.custom-list-view-page) .layout-main {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 960px !important;
+    width: min(960px, calc(100% - 48px)) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Hide nav sidebar on form pages */
+  body[data-route^="Form/"] .layout-side-section,
+  body.custom-form-view-page:not(.custom-list-view-page) .layout-side-section {
+    display: none !important;
   }
 }
 
@@ -1234,17 +1262,19 @@ body.custom-list-view-page .sort-selector,
   margin-top: 4px !important;
 }
 
-body.custom-form-view-page:not(.custom-list-view-page) .page-head,
-body.custom-form-view-page:not(.custom-list-view-page) .layout-main {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  max-width: calc(100vw - 64px) !important;
-  width: min(1560px, calc(100vw - 64px)) !important;
+/* Form view centering - handled in media query block above */
+/* Additional fallback for non-media-query contexts */
+body[data-route^="Form/"] .layout-side-section,
+body.custom-form-view-page:not(.custom-list-view-page) .layout-side-section {
+  display: none !important;
 }
 
-body.custom-form-view-page:not(.custom-list-view-page) .layout-main {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+body[data-route^="Form/"] .layout-main-section-wrapper,
+body[data-route^="Form/"] .layout-main-section,
+body.custom-form-view-page:not(.custom-list-view-page) .layout-main-section-wrapper,
+body.custom-form-view-page:not(.custom-list-view-page) .layout-main-section {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .page-body:has(.frappe-list) .frappe-list > .no-result,
