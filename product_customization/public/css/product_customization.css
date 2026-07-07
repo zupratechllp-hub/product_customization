@@ -814,7 +814,6 @@ body.sidebar-collapsed .layout-side-section {
 .input-area input,
 .input-area textarea,
 .select-area select,
-.control-input,
 .select-box,
 .data-table input,
 .link-field input,
@@ -829,6 +828,61 @@ select.form-control {
   padding: 6px 12px !important;
   font-size: 13px !important;
   box-sizing: border-box !important;
+}
+
+.form-layout *,
+.form-grid *,
+.form-section * {
+  box-sizing: border-box !important;
+}
+
+.form-layout .form-column,
+.form-layout .form-group,
+.form-layout .frappe-control,
+.form-layout .control-input-wrapper,
+.form-layout .control-input,
+.form-layout .input-with-feedback,
+.form-layout .awesomplete {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.form-layout .control-input {
+  align-items: stretch !important;
+  display: flex !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+.form-layout .control-input > .form-control,
+.form-layout .control-input > .input-with-feedback,
+.form-layout .control-input > .awesomplete,
+.form-layout .control-input > .link-field,
+.form-layout .control-input > .input-group {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.form-layout .control-input .form-control,
+.form-layout .control-input input,
+.form-layout .control-input select,
+.form-layout .control-input textarea {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.form-layout .control-input .link-btn,
+.form-layout .control-input .btn-open,
+.form-layout .control-input .btn {
+  flex: 0 0 auto !important;
+}
+
+.form-layout .like-disabled-input {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .link-btn {
