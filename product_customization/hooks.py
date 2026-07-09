@@ -25,8 +25,23 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/product_customization/css/product_customization.css?v=20260707_03"]
-app_include_js = ["/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260707_03"]
+app_include_css = ["/assets/product_customization/css/product_customization.css?v=20260709_01"]
+app_include_js = ["/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260709_01"]
+
+# Branding and Custom Logo Hooks
+app_logo_url = "/assets/product_customization/images/zupra_logo.png"
+
+update_website_context = [
+    "product_customization.login_override.update_website_context"
+]
+
+extend_bootinfo = [
+    "product_customization.login_override.extend_bootinfo"
+]
+
+after_migrate = [
+    "product_customization.login_override.after_migrate"
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/product_customization/css/product_customization.css"

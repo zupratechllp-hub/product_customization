@@ -135,18 +135,13 @@ body,
 
 .custom-zupra-brand-logo {
   align-items: center !important;
-  background-color: var(--product-theme-active) !important;
-  border-radius: 8px !important;
-  color: #ffffff !important;
-  display: inline-flex !important;
-  flex: 0 0 34px !important;
-  font-size: 20px !important;
-  font-weight: 800 !important;
-  height: 34px !important;
-  justify-content: center !important;
-  letter-spacing: 0 !important;
-  line-height: 1 !important;
-  width: 34px !important;
+  background-color: transparent !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+  height: 32px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  vertical-align: middle !important;
 }
 
 .custom-zupra-brand-name {
