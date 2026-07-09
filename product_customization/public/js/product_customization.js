@@ -146,7 +146,7 @@
     brand.classList.add(brandClass);
     brand.setAttribute("aria-label", "Zupra Tech");
     brand.innerHTML = [
-      '<span class="custom-zupra-brand-logo" aria-hidden="true">Z</span>',
+      '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="Zupra Tech" aria-hidden="true">',
       '<span class="custom-zupra-brand-name">Zupra Tech</span>',
     ].join("");
   }
