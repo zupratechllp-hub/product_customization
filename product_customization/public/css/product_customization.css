@@ -2,9 +2,12 @@
 :root {
   color-scheme: light;
   --product-theme-header-height: 48px;
-  --product-theme-sidebar-width: 248px;
+  --product-theme-sidebar-width: 184px;
   --product-theme-sidebar-top-fill: 0px;
   --product-theme-sidebar-bg: #1c2333;
+  --product-theme-sidebar-active-bg: #2563eb;
+  --product-theme-sidebar-active-text: #ffffff;
+  --product-theme-sidebar-active-icon: #ffffff;
   --product-theme-active: #5b4de8;
   --product-theme-main-bg: #f4f5f7;
   --product-theme-card-bg: #ffffff;
@@ -209,8 +212,10 @@ body,
   padding-left: 0 !important;
   max-width: var(--product-theme-sidebar-width) !important;
   min-width: var(--product-theme-sidebar-width) !important;
-  overflow: visible !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   position: fixed !important;
+  scrollbar-gutter: stable !important;
   top: var(--product-theme-header-height) !important;
   width: var(--product-theme-sidebar-width) !important;
   z-index: 20 !important;
@@ -218,6 +223,9 @@ body,
 
 .layout-side-section::before {
   display: none !important;
+}
+[data-page-route=Workspaces] .standard-sidebar-item .item-anchor {
+  padding: 10px 12px !important;
 }
 
 .layout-side-section:has(.filter-section),
@@ -268,7 +276,55 @@ body,
   height: 100% !important;
   max-height: 100% !important;
   min-height: 100% !important;
-  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable !important;
+}
+
+.layout-side-section.custom-module-side-section,
+.layout-side-section:not(.custom-list-side-section),
+.layout-side-section.custom-module-side-section > .standard-sidebar,
+.layout-side-section.custom-module-side-section > .desk-sidebar,
+.layout-side-section.custom-module-side-section > .sidebar,
+.layout-side-section:not(.custom-list-side-section) > .standard-sidebar,
+.layout-side-section:not(.custom-list-side-section) > .desk-sidebar,
+.layout-side-section:not(.custom-list-side-section) > .sidebar {
+  scrollbar-color: rgba(255, 255, 255, 0.42) transparent !important;
+  scrollbar-width: thin !important;
+}
+
+.layout-side-section.custom-module-side-section::-webkit-scrollbar,
+.layout-side-section:not(.custom-list-side-section)::-webkit-scrollbar,
+.layout-side-section.custom-module-side-section > .standard-sidebar::-webkit-scrollbar,
+.layout-side-section.custom-module-side-section > .desk-sidebar::-webkit-scrollbar,
+.layout-side-section.custom-module-side-section > .sidebar::-webkit-scrollbar,
+.layout-side-section:not(.custom-list-side-section) > .standard-sidebar::-webkit-scrollbar,
+.layout-side-section:not(.custom-list-side-section) > .desk-sidebar::-webkit-scrollbar,
+.layout-side-section:not(.custom-list-side-section) > .sidebar::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.layout-side-section.custom-module-side-section::-webkit-scrollbar-track,
+.layout-side-section:not(.custom-list-side-section)::-webkit-scrollbar-track,
+.layout-side-section.custom-module-side-section > .standard-sidebar::-webkit-scrollbar-track,
+.layout-side-section.custom-module-side-section > .desk-sidebar::-webkit-scrollbar-track,
+.layout-side-section.custom-module-side-section > .sidebar::-webkit-scrollbar-track,
+.layout-side-section:not(.custom-list-side-section) > .standard-sidebar::-webkit-scrollbar-track,
+.layout-side-section:not(.custom-list-side-section) > .desk-sidebar::-webkit-scrollbar-track,
+.layout-side-section:not(.custom-list-side-section) > .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.layout-side-section.custom-module-side-section::-webkit-scrollbar-thumb,
+.layout-side-section:not(.custom-list-side-section)::-webkit-scrollbar-thumb,
+.layout-side-section.custom-module-side-section > .standard-sidebar::-webkit-scrollbar-thumb,
+.layout-side-section.custom-module-side-section > .desk-sidebar::-webkit-scrollbar-thumb,
+.layout-side-section.custom-module-side-section > .sidebar::-webkit-scrollbar-thumb,
+.layout-side-section:not(.custom-list-side-section) > .standard-sidebar::-webkit-scrollbar-thumb,
+.layout-side-section:not(.custom-list-side-section) > .desk-sidebar::-webkit-scrollbar-thumb,
+.layout-side-section:not(.custom-list-side-section) > .sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.42) !important;
+  border-radius: 999px !important;
 }
 
 .page-wrapper,
@@ -381,15 +437,15 @@ body,
 @media (min-width: 992px) {
   /* On non-form pages, offset content by sidebar width */
   body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section:not(.hide-sidebar):not(.collapsed)) .page-head {
-    margin-left: var(--product-theme-sidebar-width, 248px) !important;
-    width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
-    max-width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
+    margin-left: var(--product-theme-sidebar-width, 184px) !important;
+    width: calc(100% - var(--product-theme-sidebar-width, 184px)) !important;
+    max-width: calc(100% - var(--product-theme-sidebar-width, 184px)) !important;
   }
 
   body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section:not(.hide-sidebar):not(.collapsed)) .layout-main {
-    margin-left: var(--product-theme-sidebar-width, 248px) !important;
-    width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
-    max-width: calc(100% - var(--product-theme-sidebar-width, 248px)) !important;
+    margin-left: var(--product-theme-sidebar-width, 184px) !important;
+    width: calc(100% - var(--product-theme-sidebar-width, 184px)) !important;
+    max-width: calc(100% - var(--product-theme-sidebar-width, 184px)) !important;
   }
 
   /* On form pages, center the page-head and layout-main */
@@ -711,6 +767,78 @@ body.custom-list-view-page .sort-selector {
 .standard-sidebar .item-anchor[aria-current="page"] .sidebar-item-label {
   color: #ffffff !important;
   font-weight: 700 !important;
+}
+
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.selected,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.active,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.current,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.open,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.custom-sidebar-active-item,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item[data-selected="1"],
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.active),
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.selected),
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.current),
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.custom-sidebar-active-anchor),
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor[aria-current="page"]),
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.selected > .item-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.active > .item-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.current > .item-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.open > .item-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.custom-sidebar-active-item > .item-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item[data-selected="1"] > .item-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item > .item-anchor.active,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item > .item-anchor.selected,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item > .item-anchor.current,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item > .item-anchor.custom-sidebar-active-anchor,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item > .item-anchor[aria-current="page"] {
+  background-color: var(--product-theme-sidebar-active-bg) !important;
+  color: var(--product-theme-sidebar-active-text) !important;
+  border-radius: 8px !important;
+}
+
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.selected *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.active *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.current *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.open *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.custom-sidebar-active-item *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item[data-selected="1"] *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.active) *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.selected) *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.current) *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.custom-sidebar-active-anchor) *,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor[aria-current="page"]) * {
+  color: var(--product-theme-sidebar-active-text) !important;
+}
+
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.selected svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.active svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.current svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.open svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item.custom-sidebar-active-item svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item[data-selected="1"] svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.active) svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.selected) svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.current) svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor.custom-sidebar-active-anchor) svg,
+.layout-side-section.custom-module-side-section .standard-sidebar .standard-sidebar-item:has(.item-anchor[aria-current="page"]) svg {
+  stroke: var(--product-theme-sidebar-active-icon) !important;
+}
+
+.layout-side-section.custom-module-side-section .custom-sidebar-active-item,
+.layout-side-section.custom-module-side-section .custom-sidebar-active-anchor {
+  background-color: var(--product-theme-sidebar-active-bg) !important;
+  color: var(--product-theme-sidebar-active-text) !important;
+  border-radius: 8px !important;
+}
+
+.layout-side-section.custom-module-side-section .custom-sidebar-active-item *,
+.layout-side-section.custom-module-side-section .custom-sidebar-active-anchor * {
+  color: var(--product-theme-sidebar-active-text) !important;
+}
+
+.layout-side-section.custom-module-side-section .custom-sidebar-active-item svg,
+.layout-side-section.custom-module-side-section .custom-sidebar-active-anchor svg {
+  stroke: var(--product-theme-sidebar-active-icon) !important;
 }
 
 .layout-side-section.collapsed,
@@ -1353,4 +1481,171 @@ body.custom-quotation-list-page .frappe-list > .no-result {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+}
+
+@media (min-width: 992px) {
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section.custom-module-side-section:not(.hide-sidebar):not(.collapsed),
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section:not(.custom-list-side-section):not(.hide-sidebar):not(.collapsed) {
+    flex: 0 0 var(--product-theme-sidebar-width, 184px) !important;
+    max-width: var(--product-theme-sidebar-width, 184px) !important;
+    min-width: var(--product-theme-sidebar-width, 184px) !important;
+    width: var(--product-theme-sidebar-width, 184px) !important;
+  }
+
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section.custom-module-side-section:not(.hide-sidebar):not(.collapsed) > .standard-sidebar,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section.custom-module-side-section:not(.hide-sidebar):not(.collapsed) > .desk-sidebar,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section.custom-module-side-section:not(.hide-sidebar):not(.collapsed) > .sidebar,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section:not(.custom-list-side-section):not(.hide-sidebar):not(.collapsed) > .standard-sidebar,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section:not(.custom-list-side-section):not(.hide-sidebar):not(.collapsed) > .desk-sidebar,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page) .layout-side-section:not(.custom-list-side-section):not(.hide-sidebar):not(.collapsed) > .sidebar {
+    max-width: var(--product-theme-sidebar-width, 184px) !important;
+    min-width: var(--product-theme-sidebar-width, 184px) !important;
+    width: var(--product-theme-sidebar-width, 184px) !important;
+  }
+
+  body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section.custom-module-side-section:not(.hide-sidebar):not(.collapsed)) .page-head,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section:not(.custom-list-side-section):not(.hide-sidebar):not(.collapsed)) .page-head,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section.custom-module-side-section:not(.hide-sidebar):not(.collapsed)) .layout-main,
+  body:not([data-route^="Form/"]):not(.custom-form-view-page):has(.layout-side-section:not(.custom-list-side-section):not(.hide-sidebar):not(.collapsed)) .layout-main {
+    margin-left: var(--product-theme-sidebar-width, 184px) !important;
+    max-width: calc(100% - var(--product-theme-sidebar-width, 184px)) !important;
+    width: calc(100% - var(--product-theme-sidebar-width, 184px)) !important;
+  }
+}
+
+/* Final module sidebar active-state override. Keep this after all sidebar rules. */
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.selected,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.active,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.current,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.open,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.custom-sidebar-active-item,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.selected,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.active,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.current,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.open,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.custom-sidebar-active-item,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.selected,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.active,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.current,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.open,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.custom-sidebar-active-item,
+.layout-side-section:not(.custom-list-side-section) li.selected,
+.layout-side-section:not(.custom-list-side-section) li.active,
+.layout-side-section:not(.custom-list-side-section) li.current,
+.layout-side-section:not(.custom-list-side-section) li.open,
+.layout-side-section:not(.custom-list-side-section) li.custom-sidebar-active-item,
+.layout-side-section:not(.custom-list-side-section) li:focus-within,
+.layout-side-section:not(.custom-list-side-section) a.selected,
+.layout-side-section:not(.custom-list-side-section) a.active,
+.layout-side-section:not(.custom-list-side-section) a.current,
+.layout-side-section:not(.custom-list-side-section) a.custom-sidebar-active-anchor,
+.layout-side-section:not(.custom-list-side-section) a[aria-current="page"],
+.layout-side-section:not(.custom-list-side-section) a:focus,
+.layout-side-section:not(.custom-list-side-section) a:focus-visible,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.selected,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.active,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.current,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.custom-sidebar-active-anchor,
+.layout-side-section:not(.custom-list-side-section) .item-anchor[aria-current="page"],
+.layout-side-section:not(.custom-list-side-section) .item-anchor:focus,
+.layout-side-section:not(.custom-list-side-section) .item-anchor:focus-visible,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.selected,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.active,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.current,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.custom-sidebar-active-anchor,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link[aria-current="page"],
+.layout-side-section:not(.custom-list-side-section) .sidebar-link:focus,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link:focus-visible,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item:focus-within,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item:has(.item-anchor.active),
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item:has(.item-anchor.selected),
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item:has(.item-anchor.current),
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item:has(.item-anchor.custom-sidebar-active-anchor),
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item:has(.item-anchor[aria-current="page"]),
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container:focus-within,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container:has(.item-anchor.active),
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container:has(.item-anchor.selected),
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container:has(.item-anchor.current),
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container:has(.item-anchor.custom-sidebar-active-anchor),
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container:has(.item-anchor[aria-current="page"]) {
+  background: #2563eb !important;
+  background-color: #2563eb !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+}
+
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.selected *,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.active *,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.current *,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.open *,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.custom-sidebar-active-item *,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.selected *,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.active *,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.current *,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.open *,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.custom-sidebar-active-item *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.selected *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.active *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.current *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.open *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.custom-sidebar-active-item *,
+.layout-side-section:not(.custom-list-side-section) li.selected *,
+.layout-side-section:not(.custom-list-side-section) li.active *,
+.layout-side-section:not(.custom-list-side-section) li.current *,
+.layout-side-section:not(.custom-list-side-section) li.open *,
+.layout-side-section:not(.custom-list-side-section) li.custom-sidebar-active-item *,
+.layout-side-section:not(.custom-list-side-section) a.selected *,
+.layout-side-section:not(.custom-list-side-section) a.active *,
+.layout-side-section:not(.custom-list-side-section) a.current *,
+.layout-side-section:not(.custom-list-side-section) a.custom-sidebar-active-anchor *,
+.layout-side-section:not(.custom-list-side-section) a[aria-current="page"] *,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.selected *,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.active *,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.current *,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.custom-sidebar-active-anchor *,
+.layout-side-section:not(.custom-list-side-section) .item-anchor[aria-current="page"] *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.selected *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.active *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.current *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.custom-sidebar-active-anchor *,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link[aria-current="page"] * {
+  color: #ffffff !important;
+}
+
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.selected svg,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.active svg,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.current svg,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.open svg,
+.layout-side-section:not(.custom-list-side-section) .standard-sidebar-item.custom-sidebar-active-item svg,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.selected svg,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.active svg,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.current svg,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.open svg,
+.layout-side-section:not(.custom-list-side-section) .desk-sidebar-item.custom-sidebar-active-item svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.selected svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.active svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.current svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.open svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-item-container.custom-sidebar-active-item svg,
+.layout-side-section:not(.custom-list-side-section) li.selected svg,
+.layout-side-section:not(.custom-list-side-section) li.active svg,
+.layout-side-section:not(.custom-list-side-section) li.current svg,
+.layout-side-section:not(.custom-list-side-section) li.open svg,
+.layout-side-section:not(.custom-list-side-section) li.custom-sidebar-active-item svg,
+.layout-side-section:not(.custom-list-side-section) a.selected svg,
+.layout-side-section:not(.custom-list-side-section) a.active svg,
+.layout-side-section:not(.custom-list-side-section) a.current svg,
+.layout-side-section:not(.custom-list-side-section) a.custom-sidebar-active-anchor svg,
+.layout-side-section:not(.custom-list-side-section) a[aria-current="page"] svg,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.selected svg,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.active svg,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.current svg,
+.layout-side-section:not(.custom-list-side-section) .item-anchor.custom-sidebar-active-anchor svg,
+.layout-side-section:not(.custom-list-side-section) .item-anchor[aria-current="page"] svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.selected svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.active svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.current svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link.custom-sidebar-active-anchor svg,
+.layout-side-section:not(.custom-list-side-section) .sidebar-link[aria-current="page"] svg {
+  stroke: #ffffff !important;
 }

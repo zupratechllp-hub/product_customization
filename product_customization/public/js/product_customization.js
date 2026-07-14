@@ -151,6 +151,102 @@
     ].join("");
   }
 
+  function normalizeSidebarText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  function normalizeSidebarSlug(value) {
+    return normalizeSidebarText(value).replace(/\s+/g, "-");
+  }
+
+  function isIgnoredSidebarKey(value) {
+    return ["app", "desk", "workspace", "workspaces"].includes(value);
+  }
+
+  function getCurrentSidebarKeys(titleText) {
+    const keys = new Set();
+    const add = (value) => {
+      const text = normalizeSidebarText(value);
+      const slug = normalizeSidebarSlug(value);
+
+      if (text && !isIgnoredSidebarKey(text)) {
+        keys.add(text);
+      }
+
+      if (slug && !isIgnoredSidebarKey(slug)) {
+        keys.add(slug);
+      }
+    };
+
+    add(titleText);
+
+    window.location.pathname
+      .split("/")
+      .filter(Boolean)
+      .forEach(add);
+
+    const route = window.frappe && typeof frappe.get_route === "function" ? frappe.get_route() : [];
+    (Array.isArray(route) ? route : String(route || "").split("/")).forEach(add);
+
+    return keys;
+  }
+
+  function getAnchorSidebarKeys(anchor) {
+    const keys = new Set();
+    const add = (value) => {
+      const text = normalizeSidebarText(value);
+      const slug = normalizeSidebarSlug(value);
+
+      if (text && !isIgnoredSidebarKey(text)) {
+        keys.add(text);
+      }
+
+      if (slug && !isIgnoredSidebarKey(slug)) {
+        keys.add(slug);
+      }
+    };
+
+    add(anchor.textContent);
+
+    try {
+      const url = new URL(anchor.getAttribute("href") || "", window.location.origin);
+      url.pathname.split("/").filter(Boolean).forEach(add);
+    } catch (error) {
+      add(anchor.getAttribute("href"));
+    }
+
+    return keys;
+  }
+
+  function markActiveSidebarItem(titleText) {
+    const currentKeys = getCurrentSidebarKeys(titleText);
+
+    document.querySelectorAll(".custom-sidebar-active-item, .custom-sidebar-active-anchor").forEach((element) => {
+      element.classList.remove("custom-sidebar-active-item", "custom-sidebar-active-anchor");
+    });
+
+    document.querySelectorAll(".layout-side-section.custom-module-side-section a").forEach((anchor) => {
+      const anchorKeys = getAnchorSidebarKeys(anchor);
+      const isCurrent = Array.from(anchorKeys).some((key) => currentKeys.has(key));
+
+      if (!isCurrent) {
+        return;
+      }
+
+      const item = anchor.closest(".standard-sidebar-item, .sidebar-item-container, li");
+
+      anchor.classList.add("custom-sidebar-active-anchor");
+
+      if (item) {
+        item.classList.add("custom-sidebar-active-item");
+      }
+    });
+  }
+
   function updateSidebarContext() {
     const isListViewPage = Boolean(
       document.querySelector(".frappe-list, .list-view, .list-row-container, .list-paging-area, .filter-button, .sort-selector")
@@ -185,6 +281,8 @@
       section.classList.toggle("custom-list-side-section", isListSidebar);
       section.classList.toggle("custom-module-side-section", !isListSidebar);
     });
+
+    markActiveSidebarItem(titleText);
   }
 
   function scheduleMove() {
