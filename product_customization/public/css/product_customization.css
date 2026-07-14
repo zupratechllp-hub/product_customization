@@ -130,9 +130,9 @@ body,
   align-items: center !important;
   color: #ffffff !important;
   display: inline-flex !important;
-  gap: 10px !important;
-  min-width: var(--product-theme-sidebar-width) !important;
-  padding: 0 14px !important;
+  gap: 4px !important;
+  min-width: auto !important;
+  padding: 0 6px !important;
   text-decoration: none !important;
 }
 
@@ -155,6 +155,31 @@ body,
   line-height: 1.1 !important;
   opacity: 1 !important;
   white-space: nowrap !important;
+}
+
+.navbar::before,
+.navbar-default::before,
+.top-bar::before {
+  align-items: center !important;
+  color: #ffffff !important;
+  content: "ZupraTech" !important;
+  display: flex !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  height: 40px !important;
+  left: calc(var(--product-theme-sidebar-width, 184px) - 10px) !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  top: 4px !important;
+  white-space: nowrap !important;
+  z-index: 50 !important;
+}
+
+.navbar,
+.navbar-default,
+.top-bar {
+  position: relative !important;
 }
 
 .navbar .form-control,
@@ -196,7 +221,7 @@ body,
   max-height: calc(100vh - var(--product-theme-header-height)) !important;
   min-height: calc(100vh - var(--product-theme-header-height)) !important;
   width: var(--product-theme-sidebar-width) !important;
-  min-width: var(--product-theme-sidebar-width) !important;
+  min-width: auto !important;
 }
 
 .layout-side-section {
@@ -211,7 +236,7 @@ body,
   padding: 0 !important;
   padding-left: 0 !important;
   max-width: var(--product-theme-sidebar-width) !important;
-  min-width: var(--product-theme-sidebar-width) !important;
+  min-width: auto !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
   position: fixed !important;
