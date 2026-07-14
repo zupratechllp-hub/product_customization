@@ -133,21 +133,27 @@
   }
 
   function findNavbarBrand() {
-    return document.querySelector(".navbar .navbar-brand, .navbar-brand, .app-logo, .navbar-home");
+    const brand = document.querySelector(".navbar .navbar-brand, .navbar-brand, .navbar-home");
+    if (brand) {
+      return brand;
+    }
+
+    const logo = document.querySelector(".navbar .app-logo, .app-logo");
+    return logo && (logo.closest("a, .navbar-brand, .navbar-home, .navbar-header, .navbar-left") || logo.parentElement);
   }
 
   function applyBranding() {
     const brand = findNavbarBrand();
 
-    if (!brand || brand.classList.contains(brandClass)) {
+    if (!brand) {
       return;
     }
 
     brand.classList.add(brandClass);
-    brand.setAttribute("aria-label", "Zupra Tech");
+    brand.setAttribute("aria-label", "ZupraTech");
     brand.innerHTML = [
-      '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="Zupra Tech" aria-hidden="true">',
-      '<span class="custom-zupra-brand-name">Zupra Tech</span>',
+      '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="ZupraTech" aria-hidden="true">',
+      '<span class="custom-zupra-brand-name">ZupraTech</span>',
     ].join("");
   }
 
