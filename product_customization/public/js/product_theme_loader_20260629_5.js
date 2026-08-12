@@ -1,5 +1,5 @@
 (function () {
-  const version = "20260714_10";
+  const version = "20260811_20";
 
   function loadStylesheet() {
     const href = `/assets/product_customization/css/product_customization.css?v=${version}`;
