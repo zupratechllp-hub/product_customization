@@ -5,15 +5,15 @@ def get_model():
     api_key = frappe.conf.get("gemini_api_key")
     genai.configure(api_key=api_key)
     return genai.GenerativeModel(
-        model_name="gemini-flash-latest",
+        model_name="gemini-3.5-flash",
         system_instruction=(
-            "You are an assistant for ZupraTech ERP. "
-            "If the user greets you (e.g. hi, hello, hey), reply warmly and briefly, "
-            "e.g. 'Hello! How can I help you with ZupraTech today?' "
-            "Only answer questions about using this ERP system or the user's own data. "
-            "If asked anything clearly unrelated to ZupraTech or ERP usage "
-            "(e.g. weather, general trivia), respond exactly: "
-            "'I can only help with questions about ZupraTech.'"
+            "You are an assistant for ZupraTech ERP. Only answer questions "
+            "about using this ERP system or the user's own data. "
+            "If asked anything unrelated, respond exactly: "
+            "'I can only help with questions about ZupraTech.' "
+            "Reply in plain conversational text only. Do not use Markdown formatting "
+            "such as #, ##, ###, ---, **bold**, or bullet symbols. Use plain numbered "
+            "steps like '1.', '2.' and write in normal sentences and paragraphs."
         )
     )
 
@@ -27,6 +27,15 @@ def get_relevant_docs(message):
     words = message.lower().split()
     matches = [d for d in HELP_DOCS if any(w in d["content"].lower() for w in words)]
     return matches if matches else HELP_DOCS[:2]
+
+import re
+
+def clean_markdown(text):
+    text = re.sub(r"^#{1,6}\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^-{3,}\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\*\*(.*?)\*\*", r"\1", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
 
 @frappe.whitelist()
 def ask(question, route=None, page_title=None, sidebar_items=None):
@@ -53,7 +62,7 @@ def ask(question, route=None, page_title=None, sidebar_items=None):
         if response is None:
             raise last_error
 
-        return {"answer": response.text}
+        return {"answer": clean_markdown(response.text)}
     except Exception:
         frappe.log_error(frappe.get_traceback(), "Ask Zupra Gemini")
         return {"answer": "I could not process that question right now. Please try again."}
