@@ -1,0 +1,23 @@
+<svg width="100%" viewBox="0 0 304 304" xmlns="http://www.w3.org/2000/svg" role="img" style="">
+<title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(11, 11, 11);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:anthropic-sans, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Z logo</title>
+<desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(11, 11, 11);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:anthropic-sans, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">A dark navy rounded square icon with a teal-to-blue gradient border, containing a rounded square outline and an outlined letter Z in the same gradient.</desc>
+<defs>
+<linearGradient id="edgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#5eead4"/>
+<stop offset="50%" stop-color="#38bdf8"/>
+<stop offset="100%" stop-color="#3b82f6"/>
+</linearGradient>
+<linearGradient id="zStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#67e8d9"/>
+<stop offset="60%" stop-color="#5ec8ef"/>
+<stop offset="100%" stop-color="#7dd3fc"/>
+</linearGradient>
+</defs>
+
+<rect x="6" y="6" width="288" height="288" rx="72" fill="#0b1a2b" style="fill:rgb(11, 26, 43);stroke:none;color:rgb(11, 11, 11);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:anthropic-sans, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<rect x="6" y="6" width="288" height="288" rx="72" fill="none" stroke="url(#edgeGrad)" stroke-width="6" style="fill:none;color:rgb(11, 11, 11);stroke-width:6px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:anthropic-sans, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<rect x="78" y="78" width="144" height="144" rx="30" fill="none" stroke="url(#edgeGrad)" stroke-width="3" stroke-opacity="0.8" style="fill:none;color:rgb(11, 11, 11);stroke-width:3px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:anthropic-sans, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<path d="M112 108 L188 108 L188 122 L138 182 L188 182 L188 196 L112 196 L112 182 L162 122 L112 122 Z" fill="none" stroke="url(#zStroke)" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" style="fill:none;color:rgb(11, 11, 11);stroke-width:9px;stroke-linecap:round;stroke-linejoin:round;opacity:1;font-family:anthropic-sans, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+</svg>
