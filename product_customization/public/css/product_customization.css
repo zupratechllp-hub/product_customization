@@ -1515,7 +1515,29 @@ body.custom-list-view-page .filter-button,
 body.custom-list-view-page .sort-selector,
 .page-body:has(.filter-button) .filter-button,
 .page-body:has(.sort-selector) .sort-selector {
+  flex: 0 0 auto !important;
   margin-top: 4px !important;
+  position: static !important;
+  z-index: auto !important;
+}
+
+body[data-route^="List/"] .filter-button,
+body.custom-list-view-page .filter-button,
+.page-body:has(.filter-button) .filter-button {
+  margin-right: 12px !important;
+}
+
+body[data-route^="List/"] .list-row-head .level-left,
+body.custom-list-view-page .list-row-head .level-left,
+.page-body:has(.list-row-head) .list-row-head .level-left {
+  min-width: 0 !important;
+}
+
+body[data-route^="List/"] .list-row-head .level-right,
+body.custom-list-view-page .list-row-head .level-right,
+.page-body:has(.list-row-head) .list-row-head .level-right {
+  flex: 0 0 auto !important;
+  margin-left: 12px !important;
 }
 
 /* Form view centering - handled in media query block above */
