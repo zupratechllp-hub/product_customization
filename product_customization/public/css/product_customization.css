@@ -1,7 +1,7 @@
 /* Desk layout theme: dark chrome only, light workspace content. */
 :root {
   color-scheme: light;
-  --product-theme-header-height: 48px;
+  --product-theme-header-height: 52px;
   --product-theme-sidebar-width: 184px;
   --product-theme-sidebar-top-fill: 0px;
   --product-theme-sidebar-bg: #1c2333;
@@ -130,9 +130,10 @@ body,
   align-items: center !important;
   color: #ffffff !important;
   display: inline-flex !important;
-  gap: 4px !important;
+  gap: 12px !important;
+  height: var(--product-theme-header-height) !important;
   min-width: auto !important;
-  padding: 0 6px !important;
+  padding: 0 !important;
   text-decoration: none !important;
 }
 
@@ -160,20 +161,9 @@ body,
 .navbar::before,
 .navbar-default::before,
 .top-bar::before {
-  align-items: center !important;
-  color: #ffffff !important;
-  content: "ZupraTech" !important;
-  display: flex !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  height: 40px !important;
-  left: calc(var(--product-theme-sidebar-width, 184px) - 10px) !important;
-  line-height: 1 !important;
-  pointer-events: none !important;
-  position: absolute !important;
-  top: 4px !important;
-  white-space: nowrap !important;
-  z-index: 50 !important;
+  /* The actual navbar brand already contains the logo and name. */
+  content: none !important;
+  display: none !important;
 }
 
 .navbar,
@@ -1336,22 +1326,33 @@ a,
   gap: 14px 28px !important;
 }
 
-.shortcut-widget-box {
+.shortcut-widget-box,
+.workspace-section:has(.shortcut-widget-box) .shortcut-widget-box,
+.widget:has(.shortcut-widget-box) {
   align-items: center !important;
-  background-color: transparent !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
   display: inline-flex !important;
   flex: 0 0 auto !important;
-  gap: 6px !important;
+  gap: 8px !important;
   height: auto !important;
   justify-content: flex-start !important;
-  margin: 0 !important;
-  min-height: 24px !important;
+  margin: 4px 6px !important;
+  min-height: 36px !important;
   min-width: 0 !important;
-  padding: 0 !important;
-  width: auto !important;
+  padding: 8px 14px !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+
+.shortcut-widget-box:hover,
+.widget:has(.shortcut-widget-box):hover {
+  background-color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.12), 0 2px 4px -1px rgba(37, 99, 235, 0.07) !important;
+  transform: translateY(-1px) !important;
 }
 
 .shortcut-widget-box .widget-head,
@@ -1363,13 +1364,13 @@ a,
   background-color: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  color: var(--product-theme-primary-text) !important;
+  color: #1e293b !important;
   display: inline-flex !important;
   flex: 0 0 auto !important;
-  gap: 6px !important;
+  gap: 8px !important;
   line-height: 1.2 !important;
   margin: 0 !important;
-  min-height: 24px !important;
+  min-height: auto !important;
   padding: 0 !important;
   white-space: nowrap !important;
   width: auto !important;
@@ -1379,7 +1380,7 @@ a,
 .shortcut-widget-box .widget-label,
 .shortcut-widget-box a {
   font-size: 14px !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
 }
 
 .shortcut-widget-box .badge,
@@ -1389,23 +1390,76 @@ a,
 .shortcut-widget-box .number,
 .shortcut-widget-box .pill {
   align-items: center !important;
-  background-color: #eef0f4 !important;
+  background-color: #eff6ff !important;
   border: 0 !important;
   border-radius: 999px !important;
-  color: var(--product-theme-muted-text) !important;
+  color: #2563eb !important;
   display: inline-flex !important;
   font-size: 12px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   height: 20px !important;
   justify-content: center !important;
   line-height: 1 !important;
-  margin-left: 4px !important;
+  margin-left: 6px !important;
   min-width: 22px !important;
-  padding: 0 7px !important;
+  padding: 0 8px !important;
   visibility: visible !important;
 }
 
-.shortcut-widget-box,
+/* Custom tile icon wrapper and icon styles */
+.custom-tile-icon-wrapper {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  height: 20px !important;
+  color: #2563eb !important;
+  margin-right: 4px !important;
+}
+
+.custom-tile-icon {
+  width: 16px !important;
+  height: 16px !important;
+  stroke: #2563eb !important;
+  color: #2563eb !important;
+}
+
+/* Card Links in "Reports & Masters" */
+.links-widget-box a,
+.report-widget-box a,
+.workspace-section .link-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 10px !important;
+  margin: 3px 0 !important;
+  border-radius: 6px !important;
+  color: #1e293b !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+.links-widget-box a:hover,
+.report-widget-box a:hover,
+.workspace-section .link-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #2563eb !important;
+}
+
+.links-widget-box a .custom-tile-icon,
+.report-widget-box a .custom-tile-icon {
+  stroke: #475569 !important;
+  color: #475569 !important;
+}
+
+.links-widget-box a:hover .custom-tile-icon,
+.report-widget-box a:hover .custom-tile-icon {
+  stroke: #2563eb !important;
+  color: #2563eb !important;
+}
+
 .links-widget-box,
 .number-widget-box,
 .quick-list-widget-box,
@@ -1461,7 +1515,29 @@ body.custom-list-view-page .filter-button,
 body.custom-list-view-page .sort-selector,
 .page-body:has(.filter-button) .filter-button,
 .page-body:has(.sort-selector) .sort-selector {
+  flex: 0 0 auto !important;
   margin-top: 4px !important;
+  position: static !important;
+  z-index: auto !important;
+}
+
+body[data-route^="List/"] .filter-button,
+body.custom-list-view-page .filter-button,
+.page-body:has(.filter-button) .filter-button {
+  margin-right: 12px !important;
+}
+
+body[data-route^="List/"] .list-row-head .level-left,
+body.custom-list-view-page .list-row-head .level-left,
+.page-body:has(.list-row-head) .list-row-head .level-left {
+  min-width: 0 !important;
+}
+
+body[data-route^="List/"] .list-row-head .level-right,
+body.custom-list-view-page .list-row-head .level-right,
+.page-body:has(.list-row-head) .list-row-head .level-right {
+  flex: 0 0 auto !important;
+  margin-left: 12px !important;
 }
 
 /* Form view centering - handled in media query block above */
@@ -1674,3 +1750,535 @@ body.custom-quotation-list-page .frappe-list > .no-result {
 .layout-side-section:not(.custom-list-side-section) .sidebar-link[aria-current="page"] svg {
   stroke: #ffffff !important;
 }
+/* Keep the brand in the same compact, left-aligned header position on every Desk page. */
+@media (min-width: 768px) {
+  .navbar .custom-zupra-brand,
+  .navbar-default .custom-zupra-brand,
+  .top-bar .custom-zupra-brand {
+    left: 16px !important;
+    position: absolute !important;
+    top: 0 !important;
+    z-index: 5 !important;
+  }
+}
+
+/* The search icon must sit above the input background rather than being covered by it. */
+.navbar .search-bar,
+.top-bar .search-bar {
+  position: relative !important;
+}
+
+.navbar .search-bar .search-icon,
+.navbar .search-bar .input-group-addon,
+.navbar .search-bar .input-group-text,
+.top-bar .search-bar .search-icon,
+.top-bar .search-bar .input-group-addon,
+.top-bar .search-bar .input-group-text {
+  align-items: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  display: flex !important;
+  height: 100% !important;
+  justify-content: center !important;
+  left: 10px !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  z-index: 2 !important;
+}
+
+.navbar .search-bar input,
+.top-bar .search-bar input {
+  padding-left: 36px !important;
+  position: relative !important;
+}
+/* Reference header geometry: a compact 52px bar with a 16px logo inset. */
+.navbar,
+.navbar-default,
+.top-bar {
+  height: var(--product-theme-header-height) !important;
+  min-height: var(--product-theme-header-height) !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
+
+.navbar .container,
+.navbar .container-fluid,
+.navbar-default .container,
+.navbar-default .container-fluid,
+.top-bar .container,
+.top-bar .container-fluid {
+  align-items: center !important;
+  height: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.navbar .custom-zupra-brand-name,
+.navbar .nav-link,
+.navbar .dropdown-toggle,
+.navbar .navbar-nav > li > a,
+.top-bar .nav-link,
+.top-bar .dropdown-toggle {
+  color: #ffffff !important;
+}
+
+.navbar .icon,
+.navbar svg,
+.top-bar .icon,
+.top-bar svg {
+  color: #cbd5e1 !important;
+  stroke: currentColor !important;
+}
+/* Compact Tank-style Desk chrome. Kept last so it wins over Frappe defaults. */
+:root {
+  --product-theme-header-height: 46px;
+  --product-theme-sidebar-width: 184px;
+  --product-theme-sidebar-bg: #1d223e;
+  --product-theme-sidebar-active-bg: #4f78ed;
+  --product-theme-active: #4f78ed;
+  --navbar-height: 46px;
+}
+
+/* Ensure navbar breadcrumbs sit cleanly to the right of Zupra Tech brand at left: 310px */
+.navbar .navbar-left,
+.navbar #navbar-breadcrumbs,
+.navbar .navbar-breadcrumbs,
+.navbar ul.breadcrumb,
+.navbar .breadcrumb,
+.navbar-nav.navbar-left {
+  position: absolute !important;
+  left: 310px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 10 !important;
+  height: auto !important;
+  white-space: nowrap !important;
+}
+
+.navbar .navbar-breadcrumbs a,
+.navbar .breadcrumb a,
+.navbar .navbar-left a,
+.navbar .navbar-breadcrumbs li,
+.navbar .breadcrumb li,
+.navbar .navbar-left li,
+.navbar .navbar-breadcrumbs span,
+.navbar .breadcrumb span,
+.navbar .navbar-left span {
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+}
+
+.navbar .navbar-breadcrumbs .divider,
+.navbar .breadcrumb .divider,
+.navbar .navbar-left .divider,
+.navbar .navbar-breadcrumbs li + li::before,
+.navbar .breadcrumb li + li::before {
+  color: #8295b9 !important;
+  content: ">" !important;
+  padding: 0 6px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar,
+  .navbar-default,
+  .top-bar {
+    height: var(--product-theme-header-height) !important;
+    min-height: var(--product-theme-header-height) !important;
+  }
+
+  .navbar .custom-zupra-brand,
+  .navbar-default .custom-zupra-brand,
+  .top-bar .custom-zupra-brand,
+  .navbar .navbar-home.custom-zupra-brand,
+  .navbar .navbar-brand.custom-zupra-brand {
+    align-items: center !important;
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    gap: 10px !important;
+    height: var(--product-theme-header-height) !important;
+    left: 16px !important;
+    max-width: none !important;
+    min-width: max-content !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    position: absolute !important;
+    top: 0 !important;
+    visibility: visible !important;
+    width: max-content !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+  }
+
+  .navbar .custom-zupra-brand-logo,
+  .top-bar .custom-zupra-brand-logo {
+    background: #ffffff !important;
+    border-radius: 6px !important;
+    display: block !important;
+    flex: 0 0 32px !important;
+    height: 32px !important;
+    object-fit: contain !important;
+    width: 32px !important;
+    padding: 2px !important;
+  }
+
+  .navbar .custom-zupra-brand-name,
+  .top-bar .custom-zupra-brand-name {
+    color: #ffffff !important;
+    display: inline-block !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 20px !important;
+    max-width: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    visibility: visible !important;
+    white-space: nowrap !important;
+  }
+
+  .navbar .search-bar,
+  .navbar .awesomplete,
+  .navbar .navbar-search,
+  .top-bar .search-bar {
+    align-items: center !important;
+    display: flex !important;
+    flex: 0 0 300px !important;
+    height: 28px !important;
+    margin: 0 24px 0 auto !important;
+    min-height: 28px !important;
+    width: 300px !important;
+    position: relative !important;
+  }
+
+  .navbar .search-bar .awesomplete,
+  .navbar .search-bar .input-group,
+  .top-bar .search-bar .awesomplete,
+  .top-bar .search-bar .input-group,
+  .navbar .search-bar input,
+  .navbar input[type="text"],
+  .navbar input[type="search"],
+  .navbar #navbar-search,
+  .top-bar .search-bar input {
+    height: 28px !important;
+    min-height: 28px !important;
+    width: 100% !important;
+  }
+
+  .navbar .search-bar input,
+  .navbar input[type="text"],
+  .navbar input[type="search"],
+  .navbar #navbar-search,
+  .top-bar .search-bar input {
+    background-color: #252d50 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 7px !important;
+    color: #d7def4 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    padding: 3px 12px 3px 36px !important;
+    box-sizing: border-box !important;
+  }
+
+  .navbar input::placeholder,
+  .navbar #navbar-search::placeholder,
+  .navbar .search-bar input::placeholder,
+  .navbar .awesomplete input::placeholder {
+    color: #8295b9 !important;
+    opacity: 1 !important;
+  }
+
+  .navbar .search-icon,
+  .navbar .search-bar .search-icon,
+  .navbar .search-bar svg,
+  .navbar .search-bar .icon-search,
+  .navbar .search-bar i,
+  .navbar svg.icon-search,
+  .navbar svg.search-icon,
+  .navbar .awesomplete .search-icon,
+  .navbar .awesomplete svg,
+  .top-bar .search-bar .search-icon {
+    position: absolute !important;
+    left: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    pointer-events: none !important;
+    z-index: 10 !important;
+    width: 14px !important;
+    height: 14px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #8295b9 !important;
+    stroke: #8295b9 !important;
+    fill: none !important;
+  }
+
+  .layout-side-section {
+    flex-basis: var(--product-theme-sidebar-width) !important;
+    max-width: var(--product-theme-sidebar-width) !important;
+    top: var(--product-theme-header-height) !important;
+    width: var(--product-theme-sidebar-width) !important;
+  }
+
+  /* Sidebar PUBLIC section header styling */
+  .layout-side-section:not(.custom-list-side-section) .sidebar-section-label,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-section-header,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-label,
+  .layout-side-section:not(.custom-list-side-section) .standard-sidebar-label,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-title,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-heading,
+  .layout-side-section:not(.custom-list-side-section) [class*="section-label"],
+  .layout-side-section:not(.custom-list-side-section) [class*="sidebar-label"],
+  .layout-side-section:not(.custom-list-side-section) [class*="section-header"],
+  .layout-side-section:not(.custom-list-side-section) [class*="sidebar-title"],
+  .layout-side-section:not(.custom-list-side-section) .body-sidebar .sidebar-label,
+  .layout-side-section:not(.custom-list-side-section) .workspace-sidebar-category {
+    color: #8295b9 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .layout-side-section:not(.custom-list-side-section) .sidebar-section-label *,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-section-header *,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-label *,
+  .layout-side-section:not(.custom-list-side-section) .standard-sidebar-label *,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-title *,
+  .layout-side-section:not(.custom-list-side-section) .sidebar-heading * {
+    color: #8295b9 !important;
+    fill: #8295b9 !important;
+    stroke: #8295b9 !important;
+    opacity: 1 !important;
+  }
+
+  /* Bright Module sidebar item icons across all sidebar states */
+  .standard-sidebar .sidebar-item-icon,
+  .standard-sidebar .icon,
+  .desk-sidebar .sidebar-item-icon,
+  .sidebar .sidebar-item-icon,
+  .sidebar .icon,
+  .standard-sidebar svg,
+  .desk-sidebar svg,
+  .sidebar svg,
+  .layout-side-section svg,
+  .layout-side-section .icon {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    fill: none !important;
+    opacity: 0.95 !important;
+  }
+
+  .standard-sidebar svg *,
+  .desk-sidebar svg *,
+  .sidebar svg *,
+  .layout-side-section svg *,
+  .standard-sidebar use,
+  .sidebar use,
+  .layout-side-section use {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    opacity: 0.95 !important;
+  }
+
+  .standard-sidebar img,
+  .desk-sidebar img,
+  .sidebar img,
+  .layout-side-section img {
+    filter: brightness(0) invert(1) !important;
+    opacity: 0.95 !important;
+  }
+}
+
+/* Universal workspace tiles: shortcuts and workspace-card links. */
+.workspace .product-shortcut-tile {
+  align-items: stretch !important;
+  background: #ffffff !important;
+  border: 1px solid #dce5f1 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  margin: 4px 6px !important;
+  min-height: 64px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease !important;
+}
+
+.workspace .product-shortcut-tile:hover,
+.workspace .product-shortcut-tile:focus-within {
+  border-color: #6b8ff6 !important;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.13) !important;
+  transform: translateY(-2px) !important;
+}
+
+.workspace .product-shortcut-content {
+  align-items: center !important;
+  color: #1e293b !important;
+  display: flex !important;
+  flex: 1 1 auto !important;
+  gap: 10px !important;
+  min-height: 62px !important;
+  padding: 10px 14px !important;
+  text-decoration: none !important;
+}
+
+.workspace .product-shortcut-content .custom-tile-icon-wrapper,
+.workspace .product-link-tile .custom-tile-icon-wrapper {
+  align-items: center !important;
+  background: #eff6ff !important;
+  border-radius: 8px !important;
+  color: #2563eb !important;
+  display: inline-flex !important;
+  flex: 0 0 30px !important;
+  height: 30px !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  width: 30px !important;
+}
+
+.workspace .product-shortcut-content .custom-tile-icon,
+.workspace .product-link-tile .custom-tile-icon {
+  fill: none !important;
+  height: 17px !important;
+  stroke: currentColor !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  stroke-width: 2 !important;
+  width: 17px !important;
+}
+
+.workspace .product-shortcut-content .badge,
+.workspace .product-shortcut-content .count,
+.workspace .product-shortcut-content .indicator-pill,
+.workspace .product-shortcut-content .widget-count {
+  background: #e8efff !important;
+  color: #2458c6 !important;
+  margin-left: auto !important;
+}
+
+.workspace .product-link-tile {
+  align-items: center !important;
+  background: #ffffff !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+  color: #334155 !important;
+  display: flex !important;
+  gap: 10px !important;
+  margin: 4px 0 !important;
+  min-height: 44px !important;
+  padding: 6px 9px !important;
+  text-decoration: none !important;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease !important;
+  width: 100% !important;
+}
+
+.workspace .product-link-tile:hover,
+.workspace .product-link-tile:focus-visible {
+  background: #f8fbff !important;
+  border-color: #cbd9ff !important;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.08) !important;
+  color: #1d4ed8 !important;
+  outline: none !important;
+  transform: translateX(2px) !important;
+}
+
+.workspace .product-link-tile:hover .custom-tile-icon-wrapper,
+.workspace .product-link-tile:focus-visible .custom-tile-icon-wrapper {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+}
+
+/* Each workspace card lays its links out as responsive, equal-width tiles. */
+.workspace .links-widget-box .widget-body,
+.workspace .report-widget-box .widget-body {
+  display: grid !important;
+  gap: 8px !important;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+}
+
+.workspace .links-widget-box .widget-body > .link-item,
+.workspace .report-widget-box .widget-body > .link-item {
+  width: 100% !important;
+}
+
+@media (max-width: 767px) {
+  .workspace .links-widget-box .widget-body,
+  .workspace .report-widget-box .widget-body {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Workspace card structure: cards form columns; every sub-link stacks vertically. */
+.workspace .links-widget-box .widget-body,
+.workspace .report-widget-box .widget-body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+
+.workspace .links-widget-box .widget-body > .link-item,
+.workspace .report-widget-box .widget-body > .link-item,
+.workspace .links-widget-box .link-item,
+.workspace .report-widget-box .link-item {
+  align-items: center !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  min-height: 42px !important;
+  width: 100% !important;
+}
+
+.workspace .links-widget-box .link-item .custom-tile-icon-wrapper,
+.workspace .report-widget-box .link-item .custom-tile-icon-wrapper {
+  display: inline-flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.links-widget-box .widget-body,
+.report-widget-box .widget-body {
+  align-items: stretch !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  gap: 4px !important;
+  grid-template-columns: none !important;
+  width: 100% !important;
+}
+.links-widget-box .widget-body > .link-item,
+.report-widget-box .widget-body > .link-item {
+  align-items: center !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  min-height: 40px !important;
+  width: 100% !important;
+}
+.navbar:not(:has(.custom-zupra-brand))::before,
+.navbar-default:not(:has(.custom-zupra-brand))::before,
+.top-bar:not(:has(.custom-zupra-brand))::before {
+  align-items: center !important;
+  color: #ffffff !important;
+  content: "Zupra Tech" !important;
+  display: flex !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  height: var(--product-theme-header-height) !important;
+  left: 58px !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  white-space: nowrap !important;
+  z-index: 101 !important;

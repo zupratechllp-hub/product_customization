@@ -135,28 +135,210 @@
   }
 
   function findNavbarBrand() {
-    const brand = document.querySelector(".navbar .navbar-brand, .navbar-brand, .navbar-home");
+    const selector = [
+      ".navbar .navbar-brand", ".navbar .navbar-home", ".top-bar .navbar-brand",
+      ".top-bar .navbar-home", ".navbar-brand", ".navbar-home",
+    ].join(", ");
+    const brand = Array.from(document.querySelectorAll(selector))
+      .find((element) => element.offsetParent !== null);
     if (brand) {
       return brand;
     }
 
-    const logo = document.querySelector(".navbar .app-logo, .app-logo");
-    return logo && (logo.closest("a, .navbar-brand, .navbar-home, .navbar-header, .navbar-left") || logo.parentElement);
+    const logo = document.querySelector(".navbar .app-logo, .top-bar .app-logo, .app-logo");
+    return logo && (logo.closest("a, .navbar-brand, .navbar-home") || logo.parentElement);
   }
 
   function applyBranding() {
-    const brand = findNavbarBrand();
+    const navbar = document.querySelector(".navbar, .navbar-default, .top-bar");
+    if (!navbar) return;
+
+    let brand = navbar.querySelector(".custom-zupra-brand");
 
     if (!brand) {
-      return;
+      const existingHome = findNavbarBrand();
+      if (existingHome) {
+        brand = existingHome;
+      } else {
+        brand = document.createElement("a");
+        brand.href = "/app";
+        const container = navbar.querySelector(".container, .container-fluid") || navbar;
+        container.insertBefore(brand, container.firstChild);
+      }
     }
 
     brand.classList.add(brandClass);
-    brand.setAttribute("aria-label", "ZupraTech");
-    brand.innerHTML = [
-      '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="ZupraTech" aria-hidden="true">',
-      '<span class="custom-zupra-brand-name">ZupraTech</span>',
-    ].join("");
+    brand.setAttribute("aria-label", "Zupra Tech");
+    brand.setAttribute("href", "/app");
+
+    const currentLogo = brand.querySelector(".custom-zupra-brand-logo");
+    const currentName = brand.querySelector(".custom-zupra-brand-name");
+
+    if (!currentLogo || !currentName || currentName.textContent.trim() !== "Zupra Tech") {
+      brand.innerHTML = [
+        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="Zupra Tech" aria-hidden="true">',
+        '<span class="custom-zupra-brand-name">Zupra Tech</span>',
+      ].join("");
+    }
+  }
+
+  function fixSearchBar() {
+    const searchInputs = document.querySelectorAll(".navbar input, #navbar-search, .search-bar input, .navbar-search input, .awesomplete input");
+    searchInputs.forEach((input) => {
+      if (input.style.paddingLeft !== "36px") {
+        input.style.setProperty("padding-left", "36px", "important");
+      }
+    });
+  }
+
+  function positionBreadcrumbs() {
+    const navbar = document.querySelector(".navbar, .navbar-default, .top-bar");
+    if (!navbar) return;
+
+    const breadcrumbsSelectors = [
+      "#navbar-breadcrumbs",
+      ".navbar-breadcrumbs",
+      ".navbar-left",
+      ".navbar-nav.navbar-left",
+      "ul.breadcrumb",
+      ".navbar .breadcrumb",
+    ];
+
+    breadcrumbsSelectors.forEach((selector) => {
+      const elements = navbar.querySelectorAll(selector);
+      elements.forEach((el) => {
+        if (!el.classList.contains("custom-zupra-brand")) {
+          el.style.setProperty("position", "absolute", "important");
+          el.style.setProperty("left", "300px", "important");
+          el.style.setProperty("top", "50%", "important");
+          el.style.setProperty("transform", "translateY(-50%)", "important");
+          el.style.setProperty("margin", "0", "important");
+          el.style.setProperty("z-index", "10", "important");
+        }
+      });
+    });
+  }
+
+  const keywordIcons = {
+    item: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
+    customer: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+    supplier: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>',
+    invoice: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
+    sales: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>',
+    order: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>',
+    accounting: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+    chart: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>',
+    stock: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
+    warehouse: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M3 7v14"></path><path d="M21 7v14"></path><path d="M3 7l9-4 9 4"></path></svg>',
+    lead: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>',
+    crm: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>',
+    company: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>',
+    brand: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>',
+    leaderboard: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>',
+    territory: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>',
+    buying: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>',
+    uom: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>',
+    reconciliation: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>',
+    default: '<svg class="custom-tile-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>'
+  };
+
+  function getIconForText(text) {
+    const lower = String(text || "").toLowerCase();
+    for (const key of Object.keys(keywordIcons)) {
+      if (key !== "default" && lower.includes(key)) {
+        return keywordIcons[key];
+      }
+    }
+    return keywordIcons.default;
+  }
+
+  function injectTileIcons() {
+    // 1. Shortcuts under "Your Shortcuts"
+    const shortcutBoxes = document.querySelectorAll(".shortcut-widget-box, .widget:has(.shortcut-widget-box)");
+    shortcutBoxes.forEach((box) => {
+      const link = box.querySelector("a") || box;
+      const labelEl = box.querySelector(".widget-title, .widget-label, .shortcut-title") || link;
+      const text = (labelEl.textContent || "").trim();
+
+      if (!text || box.querySelector(".custom-tile-icon")) return;
+
+      const iconSvg = getIconForText(text);
+      const tempWrapper = document.createElement("span");
+      tempWrapper.className = "custom-tile-icon-wrapper";
+      tempWrapper.innerHTML = iconSvg;
+
+      if (link.firstChild) {
+        link.insertBefore(tempWrapper, link.firstChild);
+      } else {
+        link.appendChild(tempWrapper);
+      }
+    });
+
+    // 2. Links inside cards (Reports & Masters, Data Import & Settings, etc.)
+    const linkItems = document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item");
+    linkItems.forEach((link) => {
+      const text = (link.textContent || "").trim();
+      if (!text || link.querySelector(".custom-tile-icon")) return;
+
+      const iconSvg = getIconForText(text);
+      const tempWrapper = document.createElement("span");
+      tempWrapper.className = "custom-tile-icon-wrapper";
+      tempWrapper.innerHTML = iconSvg;
+
+      if (link.firstChild) {
+        link.insertBefore(tempWrapper, link.firstChild);
+      } else {
+        link.appendChild(tempWrapper);
+      }
+    });
+  }
+
+  /* Add stable tile classes after each dynamic workspace render. The selectors
+     cover standard Frappe workspaces regardless of the module or route. */
+  function enhanceWorkspaceTiles() {
+    const getUniversalIcon = (text) => {
+      const label = String(text || "").toLowerCase();
+      if (/chart of accounts|account|ledger|balance|finance|tax|profit/.test(label)) return ["chart", keywordIcons.chart];
+      if (/customer|lead|contact|employee|user|crm/.test(label)) return ["people", keywordIcons.customer];
+      if (/supplier|vendor|purchase/.test(label)) return ["supplier", keywordIcons.supplier];
+      if (/company|organisation|organization|branch/.test(label)) return ["company", keywordIcons.company];
+      if (/warehouse/.test(label)) return ["warehouse", keywordIcons.warehouse];
+      if (/stock|inventory|batch|serial/.test(label)) return ["stock", keywordIcons.stock];
+      if (/item|product|material|bom/.test(label)) return ["item", keywordIcons.item];
+      if (/sales invoice|invoice|receipt|quotation|order|delivery note|payment/.test(label)) return ["invoice", keywordIcons.invoice];
+      if (/leaderboard|dashboard|report|analytics|trend/.test(label)) return ["trend", keywordIcons.leaderboard];
+      if (/territory|address|location|region/.test(label)) return ["territory", keywordIcons.territory];
+      return ["default", keywordIcons.default];
+    };
+
+    const decorate = (target, tileClass) => {
+      if (!target) return;
+      const text = String(target.textContent || "").replace(/\s+/g, " ").trim();
+      if (!text) return;
+
+      const [iconName, iconMarkup] = getUniversalIcon(text);
+      target.classList.add(tileClass);
+      let icon = target.querySelector(".custom-tile-icon-wrapper");
+      if (!icon) {
+        icon = document.createElement("span");
+        icon.className = "custom-tile-icon-wrapper";
+        icon.setAttribute("aria-hidden", "true");
+        target.insertBefore(icon, target.firstChild);
+      }
+      if (icon && icon.dataset.productTileIcon !== iconName) {
+        icon.innerHTML = iconMarkup;
+        icon.dataset.productTileIcon = iconName;
+      }
+    };
+
+    document.querySelectorAll(".shortcut-widget-box").forEach((box) => {
+      box.classList.add("product-shortcut-tile");
+      decorate(box.querySelector("a") || box, "product-shortcut-content");
+    });
+
+    document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item").forEach((item) => {
+      decorate(item.matches("a") ? item : item.querySelector("a") || item, "product-link-tile");
+    });
   }
 
   function findNavbar() {
@@ -764,6 +946,10 @@
       ensureAskZupraButton();
       ensureAskZupraPopup();
       syncAskZupraDialogState();
+      positionBreadcrumbs();
+      fixSearchBar();
+      injectTileIcons();
+      enhanceWorkspaceTiles();
       updateSidebarContext();
     }, delay));
   }
