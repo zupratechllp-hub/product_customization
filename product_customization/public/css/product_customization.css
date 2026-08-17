@@ -1906,7 +1906,7 @@ body.custom-quotation-list-page .frappe-list > .no-result {
     height: 32px !important;
     object-fit: contain !important;
     width: 32px !important;
-    padding: 2px !important;
+    padding: 2px !important; background-image: url(/assets/product_customization/images/z_logo_icon_v2.svg) !important; background-position: center !important; background-repeat: no-repeat !important; background-size: contain !important;
   }
 
   .navbar .custom-zupra-brand-name,
@@ -2260,3 +2260,49 @@ body.custom-quotation-list-page .frappe-list > .no-result {
   top: 0 !important;
   white-space: nowrap !important;
   z-index: 101 !important;
+
+}
+
+/* Signed-in user greeting at the top of the Home workspace. */
+.product-home-welcome {
+  align-items: center !important;
+  background: #ffffff !important;
+  border: 1px solid #dce5f1 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+  color: #172554 !important;
+  display: flex !important;
+  gap: 12px !important;
+  margin: 0 0 18px !important;
+  min-height: 62px !important;
+  padding: 14px 18px !important;
+}
+
+.product-home-welcome-icon {
+  align-items: center !important;
+  background: #e8efff !important;
+  border-radius: 8px !important;
+  color: #315fd7 !important;
+  display: inline-flex !important;
+  flex: 0 0 34px !important;
+  height: 34px !important;
+  justify-content: center !important;
+  width: 34px !important;
+}
+
+.product-home-welcome-icon svg {
+  fill: none !important;
+  height: 19px !important;
+  stroke: currentColor !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  stroke-width: 2 !important;
+  width: 19px !important;
+}
+
+.product-home-welcome-title {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+}

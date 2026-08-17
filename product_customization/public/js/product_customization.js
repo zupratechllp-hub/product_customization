@@ -174,7 +174,7 @@
 
     if (!currentLogo || !currentName || currentName.textContent.trim() !== "Zupra Tech") {
       brand.innerHTML = [
-        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="Zupra Tech" aria-hidden="true">',
+        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/z_logo_icon_v2.svg" alt="Zupra Tech" aria-hidden="true">',
         '<span class="custom-zupra-brand-name">Zupra Tech</span>',
       ].join("");
     }
@@ -473,6 +473,62 @@
     markActiveSidebarItem(titleText);
   }
 
+
+  function getSignedInUserName() {
+    const boot = window.frappe && frappe.boot ? frappe.boot : {};
+    const bootUser = boot.user || {};
+    const userInfo = boot.user_info && boot.user_info[bootUser.name];
+    const fullName = userInfo && (userInfo.fullname || userInfo.full_name);
+    const sessionName = window.frappe && frappe.session && frappe.session.user_fullname;
+    const userName = window.frappe && frappe.user && typeof frappe.user.full_name === "function"
+      ? frappe.user.full_name()
+      : "";
+    return String(fullName || sessionName || userName || bootUser.full_name || bootUser.fullname || "").trim();
+  }
+
+  function isHomeWorkspace() {
+    const route = window.frappe && typeof frappe.get_route === "function" ? frappe.get_route() : [];
+    const routeName = (Array.isArray(route) ? route[0] : String(route || "")).toLowerCase();
+    const path = window.location.pathname.toLowerCase().replace(/\/$/, "");
+    const title = (getTitleText(getTitleArea())?.textContent || "").trim().toLowerCase();
+    return routeName === "home" ||
+      routeName === "workspaces" ||
+      path === "/app" ||
+      path === "/app/home" ||
+      path === "/app/workspaces" ||
+      title === "home" ||
+      title === "workspace";
+  }
+
+  function updateHomeWelcome() {
+    if (!isHomeWorkspace()) {
+      document.querySelectorAll(".product-home-welcome").forEach((element) => element.remove());
+      return;
+    }
+
+    const homeContent = document.querySelector(
+      ".page-container[data-page-route='Workspaces'] .layout-main-section, .page-container .layout-main-section, .layout-main-section"
+    );
+    const name = getSignedInUserName();
+    if (!homeContent) return;
+
+    let welcome = homeContent.querySelector(".product-home-welcome");
+    if (!welcome) {
+      welcome = document.createElement("section");
+      welcome.className = "product-home-welcome";
+      welcome.setAttribute("aria-label", "Welcome message");
+      welcome.innerHTML = [
+        '<span class="product-home-welcome-icon" aria-hidden="true">',
+        '<svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 9h.01M15 9h.01"></path></svg>',
+        "</span>",
+        '<h2 class="product-home-welcome-title"></h2>',
+      ].join("");
+      homeContent.insertBefore(welcome, homeContent.firstChild);
+    }
+    welcome.querySelector(".product-home-welcome-title").textContent = `Welcome ${name}`;
+    homeContent.insertBefore(welcome, homeContent.firstChild);
+  }
+
   function scheduleMove() {
     scheduleTimers.forEach((timer) => clearTimeout(timer));
     scheduleTimers = [0, 100, 300, 700].map((delay) => setTimeout(() => {
@@ -483,6 +539,7 @@
       injectTileIcons();
       enhanceWorkspaceTiles();
       updateSidebarContext();
+      updateHomeWelcome();
     }, delay));
   }
 
