@@ -938,19 +938,27 @@
     markActiveSidebarItem(titleText);
   }
 
+  function safeRun(fn) {
+    try {
+      fn();
+    } catch (err) {
+      console.error("product_customization: error in " + (fn.name || "anonymous"), err);
+    }
+  }
+
   function scheduleMove() {
     scheduleTimers.forEach((timer) => clearTimeout(timer));
     scheduleTimers = [0, 100, 300, 700].map((delay) => setTimeout(() => {
-      moveSidebarToggle();
-      applyBranding();
-      ensureAskZupraButton();
-      ensureAskZupraPopup();
-      syncAskZupraDialogState();
-      positionBreadcrumbs();
-      fixSearchBar();
-      injectTileIcons();
-      enhanceWorkspaceTiles();
-      updateSidebarContext();
+      safeRun(moveSidebarToggle);
+      safeRun(applyBranding);
+      safeRun(ensureAskZupraButton);
+      safeRun(ensureAskZupraPopup);
+      safeRun(syncAskZupraDialogState);
+      safeRun(positionBreadcrumbs);
+      safeRun(fixSearchBar);
+      safeRun(injectTileIcons);
+      safeRun(enhanceWorkspaceTiles);
+      safeRun(updateSidebarContext);
     }, delay));
   }
 
