@@ -1,5 +1,5 @@
 (function () {
-  const version = "20260811_21";
+  const version = "20260819_06";
 
   function loadStylesheet() {
     const href = `/assets/product_customization/css/product_customization.css?v=${version}`;
@@ -74,7 +74,7 @@
   function positionAskZupraFallback(button) {
     const searchTarget = getSearchTarget();
     const buttonWidth = button.offsetWidth || 108;
-    const buttonHeight = button.offsetHeight || 40;
+    const buttonHeight = button.offsetHeight || 34;
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 1200;
     let left = Math.min(Math.max(viewportWidth * 0.54, 260), 1050);
     let top = 8;
