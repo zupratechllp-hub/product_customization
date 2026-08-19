@@ -3192,3 +3192,179 @@ body.custom-list-view-page .sort-selector {
   line-height: 1.25 !important;
   margin: 0 !important;
 }
+
+/* Home shortcut cards: keep icon, title, action arrow, and count on one row. */
+.workspace .product-shortcut-content,
+.workspace .product-shortcut-tile > a,
+.workspace .product-shortcut-tile .widget-body > a {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+}
+
+.workspace .product-shortcut-content .widget-title,
+.workspace .product-shortcut-content .widget-label,
+.workspace .product-shortcut-content .shortcut-title,
+.workspace .product-shortcut-content .title {
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-align: left !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Command-search suggestions must appear below the input and remain readable. */
+.navbar .awesomplete > ul,
+.top-bar .awesomplete > ul,
+.navbar .search-bar .awesomplete > ul,
+.top-bar .search-bar .awesomplete > ul,
+.navbar .search-dialog,
+.top-bar .search-dialog {
+  background: #ffffff !important;
+  border: 1px solid #d8e0ec !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18) !important;
+  color: #172033 !important;
+  left: 0 !important;
+  margin: 6px 0 0 !important;
+  max-height: min(420px, calc(100vh - 110px)) !important;
+  min-width: 100% !important;
+  overflow-y: auto !important;
+  position: absolute !important;
+  right: auto !important;
+  top: 100% !important;
+  width: 100% !important;
+  z-index: 1100 !important;
+}
+
+.navbar .awesomplete > ul li,
+.navbar .awesomplete > ul a,
+.navbar .awesomplete > ul span,
+.top-bar .awesomplete > ul li,
+.top-bar .awesomplete > ul a,
+.top-bar .awesomplete > ul span,
+.navbar .search-dialog *,
+.top-bar .search-dialog * {
+  color: #172033 !important;
+}
+
+.navbar .awesomplete > ul li:hover,
+.navbar .awesomplete > ul li[aria-selected="true"],
+.top-bar .awesomplete > ul li:hover,
+.top-bar .awesomplete > ul li[aria-selected="true"] {
+  background: #edf4ff !important;
+}
+
+/* Improve contrast for every module icon in the dark sidebar. */
+.layout-side-section .sidebar-item-icon,
+.layout-side-section .icon,
+.layout-side-section svg,
+.layout-side-section svg *,
+.standard-sidebar .sidebar-item-icon,
+.standard-sidebar .icon,
+.standard-sidebar svg,
+.standard-sidebar svg * {
+  color: #dbeafe !important;
+  opacity: 1 !important;
+  stroke: #dbeafe !important;
+}
+
+.layout-side-section svg [fill]:not([fill="none"]),
+.standard-sidebar svg [fill]:not([fill="none"]) {
+  fill: #dbeafe !important;
+}
+/* Final Desk alignment: the Frappe shortcut label is a sibling of its link. */
+.workspace .shortcut-widget-box.product-shortcut-tile {
+  align-items: center !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 9px !important;
+  justify-content: flex-start !important;
+}
+
+.workspace .shortcut-widget-box.product-shortcut-tile > .custom-tile-icon-wrapper {
+  flex: 0 0 30px !important;
+  order: 0 !important;
+}
+
+.workspace .shortcut-widget-box.product-shortcut-tile > a,
+.workspace .shortcut-widget-box.product-shortcut-tile > .widget-head,
+.workspace .shortcut-widget-box.product-shortcut-tile > .widget-body,
+.workspace .shortcut-widget-box.product-shortcut-tile > .widget-title,
+.workspace .shortcut-widget-box.product-shortcut-tile > .widget-label {
+  align-items: center !important;
+  display: inline-flex !important;
+  flex: 0 1 auto !important;
+  flex-direction: row !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  order: 1 !important;
+  white-space: nowrap !important;
+}
+
+.workspace .shortcut-widget-box.product-shortcut-tile .widget-title,
+.workspace .shortcut-widget-box.product-shortcut-tile .widget-label {
+  text-align: left !important;
+}
+
+/* Give the brand a clean logo-to-name gap and keep it away from header controls. */
+.navbar .custom-zupra-brand,
+.top-bar .custom-zupra-brand {
+  gap: 18px !important;
+  padding-right: 34px !important;
+}
+
+/* Frappe sidebar symbols are external SVG/use elements; a bright filter works for both formats. */
+.layout-side-section .sidebar-item-icon,
+.layout-side-section .sidebar-item-icon svg,
+.layout-side-section .icon,
+.layout-side-section .icon svg,
+.standard-sidebar .sidebar-item-icon,
+.standard-sidebar .sidebar-item-icon svg,
+.standard-sidebar .icon,
+.standard-sidebar .icon svg {
+  filter: brightness(0) invert(1) !important;
+  opacity: 1 !important;
+}
+
+.layout-side-section .sidebar-item-container:not(.selected) .item-anchor,
+.layout-side-section .sidebar-item-container:not(.selected) .sidebar-link,
+.standard-sidebar .sidebar-item-container:not(.selected) .item-anchor,
+.standard-sidebar .sidebar-item-container:not(.selected) .sidebar-link {
+  color: #e2e8f0 !important;
+}
+/* Header control group: align Ask Zupra and command search on one baseline. */
+@media (min-width: 768px) {
+  .custom-ask-zupra-button,
+  .navbar .custom-ask-zupra-button,
+  .navbar-default .custom-ask-zupra-button,
+  .top-bar .custom-ask-zupra-button {
+    border-radius: 7px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 16px !important;
+  }
+
+  .navbar .search-bar,
+  .navbar .awesomplete,
+  .navbar .navbar-search,
+  .top-bar .search-bar {
+    flex-basis: 320px !important;
+    height: 34px !important;
+    margin-right: 24px !important;
+    min-height: 34px !important;
+    width: 320px !important;
+  }
+
+  .navbar .search-bar input,
+  .navbar input[type="text"],
+  .navbar input[type="search"],
+  .navbar #navbar-search,
+  .top-bar .search-bar input {
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+}

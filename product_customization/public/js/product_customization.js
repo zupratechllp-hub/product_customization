@@ -273,7 +273,7 @@
     });
 
     // 2. Links inside cards (Reports & Masters, Data Import & Settings, etc.)
-    const linkItems = document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item");
+    const linkItems = document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item, .widget-card .link-item");
     linkItems.forEach((link) => {
       const text = (link.textContent || "").trim();
       if (!text || link.querySelector(".custom-tile-icon")) return;
@@ -329,12 +329,25 @@
       }
     };
 
-    document.querySelectorAll(".shortcut-widget-box").forEach((box) => {
-      box.classList.add("product-shortcut-tile");
-      decorate(box.querySelector("a") || box, "product-shortcut-content");
+    document.querySelectorAll(".shortcut-widget-box, .widget.shortcut-widget-box, .widget:has(.shortcut-widget-box)").forEach((box) => {
+      const shortcutBox = box.matches(".shortcut-widget-box") ? box : box.querySelector(".shortcut-widget-box") || box;
+      shortcutBox.classList.add("product-shortcut-tile");
+      const shortcutLink = shortcutBox.querySelector("a") || shortcutBox;
+      decorate(shortcutLink, "product-shortcut-content");
+
+      // Force a horizontal shortcut layout across Frappe Desk versions.
+      shortcutBox.style.setProperty("display", "flex", "important");
+      shortcutBox.style.setProperty("align-items", "center", "important");
+      shortcutBox.style.setProperty("flex-direction", "row", "important");
+      shortcutBox.style.setProperty("flex-wrap", "nowrap", "important");
+      shortcutLink.style.setProperty("align-items", "center", "important");
+      shortcutLink.style.setProperty("display", "flex", "important");
+      shortcutLink.style.setProperty("flex-direction", "row", "important");
+      shortcutLink.style.setProperty("flex-wrap", "nowrap", "important");
+      shortcutLink.style.setProperty("gap", "8px", "important");
     });
 
-    document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item").forEach((item) => {
+    document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item, .widget-card .link-item").forEach((item) => {
       decorate(item.matches("a") ? item : item.querySelector("a") || item, "product-link-tile");
     });
   }
@@ -477,13 +490,14 @@
   function getSignedInUserName() {
     const boot = window.frappe && frappe.boot ? frappe.boot : {};
     const bootUser = boot.user || {};
-    const userInfo = boot.user_info && boot.user_info[bootUser.name];
+    const sessionUser = window.frappe && frappe.session && frappe.session.user;
+    const userInfo = boot.user_info && boot.user_info[bootUser.name || sessionUser];
     const fullName = userInfo && (userInfo.fullname || userInfo.full_name);
     const sessionName = window.frappe && frappe.session && frappe.session.user_fullname;
     const userName = window.frappe && frappe.user && typeof frappe.user.full_name === "function"
       ? frappe.user.full_name()
       : "";
-    return String(fullName || sessionName || userName || bootUser.full_name || bootUser.fullname || "").trim();
+    return String(fullName || sessionName || userName || bootUser.full_name || bootUser.fullname || bootUser.name || sessionUser || "").trim();
   }
 
   function isHomeWorkspace() {
@@ -507,7 +521,7 @@
     }
 
     const homeContent = document.querySelector(
-      ".page-container[data-page-route='Workspaces'] .layout-main-section, .page-container .layout-main-section, .layout-main-section"
+      ".page-container[data-page-route='Workspaces'] .workspace, .page-container[data-page-route='Home'] .workspace, .page-container .workspace, .workspace, .page-container[data-page-route='Workspaces'] .layout-main-section, .page-container .layout-main-section, .layout-main-section"
     );
     const name = getSignedInUserName();
     if (!homeContent) return;
@@ -529,17 +543,27 @@
     homeContent.insertBefore(welcome, homeContent.firstChild);
   }
 
+  function runThemeTask(task) {
+    try {
+      task();
+    } catch (error) {
+      // Desk DOM changes across Frappe versions. One optional enhancement must
+      // never prevent the logo, tile icons, or Home greeting from rendering.
+      console.warn("Product Customization enhancement skipped", error);
+    }
+  }
+
   function scheduleMove() {
     scheduleTimers.forEach((timer) => clearTimeout(timer));
-    scheduleTimers = [0, 100, 300, 700].map((delay) => setTimeout(() => {
-      moveSidebarToggle();
-      applyBranding();
-      positionBreadcrumbs();
-      fixSearchBar();
-      injectTileIcons();
-      enhanceWorkspaceTiles();
-      updateSidebarContext();
-      updateHomeWelcome();
+    scheduleTimers = [0, 100, 300, 700, 1200, 2000].map((delay) => setTimeout(() => {
+      runThemeTask(moveSidebarToggle);
+      runThemeTask(applyBranding);
+      runThemeTask(positionBreadcrumbs);
+      runThemeTask(fixSearchBar);
+      runThemeTask(injectTileIcons);
+      runThemeTask(enhanceWorkspaceTiles);
+      runThemeTask(updateSidebarContext);
+      runThemeTask(updateHomeWelcome);
     }, delay));
   }
 
