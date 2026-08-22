@@ -46,7 +46,7 @@ after_migrate = [
 ]
 
 # include js, css files in header of web template
-# web_include_css = "/assets/product_customization/css/product_customization.css"
+web_include_css = ["/assets/product_customization/css/login_theme.css?v=20260822_06"]
 # web_include_js = "/assets/product_customization/js/product_customization.js"
 
 # include custom scss in every website theme (without file extension ".scss")

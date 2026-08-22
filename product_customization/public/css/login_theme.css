@@ -1,0 +1,780 @@
+/* Zupra login screen */
+:root {
+  color-scheme: dark;
+  --login-bg: #121212;
+  --login-panel: #171717;
+  --login-panel-soft: #151515;
+  --login-text: #f4f4f2;
+  --login-muted: #c4c1bc;
+  --login-border: #343434;
+  --login-border-strong: #4a4a4a;
+  --login-accent: #2f7edb;
+  --login-accent-hover: #3b8df0;
+  --login-logo-bg: #06254a;
+}
+
+body[data-path='login'],
+body[data-path='login'] .page_content,
+body[data-path='login'] .web-page {
+  background: var(--login-bg) !important;
+  color: var(--login-text) !important;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  min-height: 100vh;
+}
+
+body[data-path='login'] .navbar,
+body[data-path='login'] .web-header,
+body[data-path='login'] header,
+body[data-path='login'] .web-footer,
+body[data-path='login'] footer {
+  display: none !important;
+}
+
+body[data-path='login'] .page_content,
+body[data-path='login'] .page_content > div {
+  display: grid;
+  min-height: 100vh;
+  padding: 0;
+}
+
+body[data-path='login'] section.for-login,
+body[data-path='login'] section.for-email-login,
+body[data-path='login'] section.for-forgot,
+body[data-path='login'] section.for-signup,
+body[data-path='login'] section.for-login-with-email-link {
+  background: linear-gradient(90deg, var(--login-panel-soft) 0 52%, var(--login-panel) 52% 100%);
+  box-sizing: border-box;
+  grid-template-columns: minmax(360px, 52%) minmax(360px, 48%);
+  margin: 0 !important;
+  max-width: none !important;
+  min-height: 100vh;
+  padding: 82px 74px !important;
+  position: relative;
+  width: 100% !important;
+}
+
+body[data-path='login'] section.for-login:not([style*='display: none']),
+body[data-path='login'] section.for-email-login:not([style*='display: none']),
+body[data-path='login'] section.for-forgot:not([style*='display: none']),
+body[data-path='login'] section.for-signup:not([style*='display: none']),
+body[data-path='login'] section.for-login-with-email-link:not([style*='display: none']) {
+  display: grid !important;
+}
+
+body[data-path='login'] section.hide,
+body[data-path='login'] section[style*='display: none'] {
+  display: none !important;
+}
+
+body[data-path='login'] section.for-login::before,
+body[data-path='login'] section.for-email-login::before,
+body[data-path='login'] section.for-forgot::before,
+body[data-path='login'] section.for-signup::before,
+body[data-path='login'] section.for-login-with-email-link::before {
+  background: rgba(255, 255, 255, 0.04);
+  content: '';
+  height: 100%;
+  left: 52%;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+body[data-path='login'] .page-card-head {
+  align-self: start;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--login-text) !important;
+  display: block !important;
+  grid-column: 1;
+  margin: 0 !important;
+  max-width: 560px;
+  padding: 0 !important;
+  position: relative;
+  text-align: left !important;
+  width: 100% !important;
+  z-index: 1;
+}
+
+body[data-path='login'] .page-card-head::before {
+  color: var(--login-text);
+  content: 'Run your business from\A one place';
+  display: block;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.24;
+  margin-top: 78px;
+  white-space: pre-line;
+}
+
+body[data-path='login'] .page-card-head::after {
+  color: var(--login-muted);
+  content: 'Sales, inventory, accounts and HR, all in a single\A connected workspace built for zupra.\A\A \25A1   Real-time inventory across warehouses\A\A \25A1   Approvals and invoicing in one flow\A\A \25A1   Role based dashboards for every team\A\A\A zupra technologies';
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.55;
+  margin-top: 20px;
+  white-space: pre-line;
+}
+
+body[data-path='login'] .page-card-head h4,
+body[data-path='login'] .page-card-body h4,
+body[data-path='login'] .page-card-body .page-card-head,
+body[data-path='login'] .page-card-body .login-title {
+  display: none !important;
+}
+
+body[data-path='login'] .page-card-head .app-logo {
+  align-items: center;
+  background: var(--login-logo-bg) !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  height: 72px !important;
+  justify-content: center;
+  margin: 0 !important;
+  object-fit: contain !important;
+  padding: 18px !important;
+  width: 72px !important;
+}
+
+body[data-path='login'] .login-content.page-card {
+  align-self: start;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--login-text) !important;
+  grid-column: 2;
+  justify-self: end;
+  margin: 10px 0 0 !important;
+  max-width: 560px !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  text-align: left !important;
+  width: 100% !important;
+  z-index: 1;
+}
+
+body[data-path='login'] .form-signin {
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+body[data-path='login'] .for-login .page-card-body::before,
+body[data-path='login'] .for-email-login .page-card-body::before {
+  color: var(--login-text);
+  content: 'Welcome back\A Sign in to your zupra workspace.';
+  display: block;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.26;
+  margin: 0 0 42px;
+  white-space: pre-line;
+}
+
+body[data-path='login'] .page-card-body,
+body[data-path='login'] .page-card-actions {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body[data-path='login'] .form-group {
+  margin-bottom: 28px !important;
+}
+
+body[data-path='login'] .form-label,
+body[data-path='login'] label:not(.form-check-label) {
+  color: var(--login-muted) !important;
+  display: block !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin: 0 0 12px !important;
+}
+
+body[data-path='login'] .form-control,
+body[data-path='login'] input[type='text'],
+body[data-path='login'] input[type='email'],
+body[data-path='login'] input[type='password'] {
+  background: transparent !important;
+  border: 2px solid var(--login-border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: var(--login-text) !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  height: 64px !important;
+  line-height: 64px !important;
+  padding: 0 22px !important;
+  width: 100% !important;
+}
+
+body[data-path='login'] .form-control::placeholder,
+body[data-path='login'] input::placeholder {
+  color: var(--login-text) !important;
+  opacity: 1 !important;
+}
+
+body[data-path='login'] .form-control:focus,
+body[data-path='login'] input[type='text']:focus,
+body[data-path='login'] input[type='email']:focus,
+body[data-path='login'] input[type='password']:focus {
+  border-color: var(--login-accent) !important;
+  box-shadow: 0 0 0 3px rgba(47, 126, 219, 0.2) !important;
+}
+
+body[data-path='login'] .password-field {
+  position: relative;
+}
+
+body[data-path='login'] .field-icon,
+body[data-path='login'] .toggle-password {
+  color: var(--login-muted) !important;
+  right: 18px !important;
+}
+
+body[data-path='login'] .forgot-password-message,
+body[data-path='login'] .sign-up-message {
+  color: var(--login-muted) !important;
+  font-size: 16px !important;
+  margin: 0 !important;
+  text-align: right !important;
+}
+
+body[data-path='login'] .forgot-password-message {
+  margin-top: -4px !important;
+}
+
+body[data-path='login'] .forgot-password-message a,
+body[data-path='login'] .sign-up-message a,
+body[data-path='login'] a {
+  color: #61a8ff !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+body[data-path='login'] .forgot-password-message a:hover,
+body[data-path='login'] .sign-up-message a:hover {
+  color: #8fc1ff !important;
+}
+
+body[data-path='login'] .page-card-actions {
+  padding-top: 40px !important;
+}
+
+body[data-path='login'] .btn-primary,
+body[data-path='login'] .btn-login {
+  align-items: center !important;
+  background: var(--login-accent) !important;
+  border: 1px solid var(--login-accent) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  height: 64px !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  min-width: 0 !important;
+  padding: 0 28px !important;
+  width: 100% !important;
+}
+
+body[data-path='login'] .btn-primary:hover,
+body[data-path='login'] .btn-login:hover,
+body[data-path='login'] .btn-primary:focus,
+body[data-path='login'] .btn-login:focus {
+  background: var(--login-accent-hover) !important;
+  border-color: var(--login-accent-hover) !important;
+}
+
+body[data-path='login'] .sign-up-message,
+body[data-path='login'] .login-divider,
+body[data-path='login'] .social-logins {
+  color: var(--login-muted) !important;
+}
+
+body[data-path='login'] .login-divider {
+  margin: 22px 0 !important;
+}
+
+body[data-path='login'] .btn:not(.btn-primary):not(.btn-login),
+body[data-path='login'] .btn-login-option {
+  background: transparent !important;
+  border: 2px solid var(--login-border-strong) !important;
+  border-radius: 14px !important;
+  color: var(--login-text) !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  height: 64px !important;
+  width: 100% !important;
+}
+
+@media (max-width: 1024px) {
+  body[data-path='login'] section.for-login,
+  body[data-path='login'] section.for-email-login,
+  body[data-path='login'] section.for-forgot,
+  body[data-path='login'] section.for-signup,
+  body[data-path='login'] section.for-login-with-email-link {
+    grid-template-columns: 1fr;
+    padding: 48px 28px !important;
+  }
+
+  body[data-path='login'] section.for-login::before,
+  body[data-path='login'] section.for-email-login::before,
+  body[data-path='login'] section.for-forgot::before,
+  body[data-path='login'] section.for-signup::before,
+  body[data-path='login'] section.for-login-with-email-link::before {
+    display: none;
+  }
+
+  body[data-path='login'] .page-card-head,
+  body[data-path='login'] .login-content.page-card {
+    grid-column: 1;
+    justify-self: stretch;
+    max-width: 620px !important;
+    width: 100% !important;
+  }
+
+  body[data-path='login'] .page-card-head::before {
+    font-size: 34px;
+    margin-top: 40px;
+  }
+
+  body[data-path='login'] .page-card-head::after {
+    content: 'Sales, inventory, accounts and HR, all in a single connected workspace built for zupra.';
+    font-size: 20px;
+    line-height: 1.45;
+    margin: 16px 0 38px;
+  }
+
+  body[data-path='login'] .login-content.page-card {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body[data-path='login'] section.for-login,
+  body[data-path='login'] section.for-email-login,
+  body[data-path='login'] section.for-forgot,
+  body[data-path='login'] section.for-signup,
+  body[data-path='login'] section.for-login-with-email-link {
+    padding: 32px 20px !important;
+  }
+
+  body[data-path='login'] .page-card-head .app-logo {
+    border-radius: 12px !important;
+    height: 56px !important;
+    padding: 14px !important;
+    width: 56px !important;
+  }
+
+  body[data-path='login'] .page-card-head::before,
+  body[data-path='login'] .for-login .page-card-body::before,
+  body[data-path='login'] .for-email-login .page-card-body::before {
+    font-size: 28px;
+  }
+
+  body[data-path='login'] .page-card-head::after {
+    font-size: 18px;
+  }
+
+  body[data-path='login'] .form-label,
+  body[data-path='login'] label:not(.form-check-label),
+  body[data-path='login'] .forgot-password-message,
+  body[data-path='login'] .sign-up-message {
+    font-size: 15px !important;
+  }
+
+  body[data-path='login'] .form-control,
+  body[data-path='login'] input[type='text'],
+  body[data-path='login'] input[type='email'],
+  body[data-path='login'] input[type='password'],
+  body[data-path='login'] .btn-primary,
+  body[data-path='login'] .btn-login,
+  body[data-path='login'] .btn:not(.btn-primary):not(.btn-login),
+  body[data-path='login'] .btn-login-option {
+    font-size: 18px !important;
+    height: 54px !important;
+  }
+}
+
+/* Compact scale pass: keep the split layout, make it feel like an app login instead of a poster. */
+body[data-path='login'] section.for-login,
+body[data-path='login'] section.for-email-login,
+body[data-path='login'] section.for-forgot,
+body[data-path='login'] section.for-signup,
+body[data-path='login'] section.for-login-with-email-link {
+  grid-template-columns: minmax(320px, 52%) minmax(320px, 48%);
+  padding: 52px 64px !important;
+}
+
+body[data-path='login'] .login-content .page-card-head,
+body[data-path='login'] .login-content h4,
+body[data-path='login'] .login-content .page-card-body > h4,
+body[data-path='login'] .login-content .page-card-body > .page-card-head,
+body[data-path='login'] .login-content .page-card-body .page-card-head,
+body[data-path='login'] .login-content .page-card-head::before,
+body[data-path='login'] .login-content .page-card-head::after {
+  display: none !important;
+}
+
+body[data-path='login'] .page-card-head {
+  max-width: 480px;
+}
+
+body[data-path='login'] .page-card-head .app-logo {
+  border-radius: 10px !important;
+  height: 44px !important;
+  padding: 11px !important;
+  width: 44px !important;
+}
+
+body[data-path='login'] .page-card-head::before {
+  font-size: 32px;
+  line-height: 1.18;
+  margin-top: 48px;
+}
+
+body[data-path='login'] .page-card-head::after {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-top: 18px;
+}
+
+body[data-path='login'] .login-content.page-card {
+  margin-top: 18px !important;
+  max-width: 460px !important;
+}
+
+body[data-path='login'] .for-login .page-card-body::before,
+body[data-path='login'] .for-email-login .page-card-body::before {
+  content: 'Welcome back\A Sign in to your zupra workspace.';
+  font-size: 23px;
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+
+body[data-path='login'] .form-group {
+  margin-bottom: 16px !important;
+}
+
+body[data-path='login'] .form-label,
+body[data-path='login'] label:not(.form-check-label) {
+  font-size: 13px !important;
+  margin-bottom: 6px !important;
+}
+
+body[data-path='login'] .form-control,
+body[data-path='login'] input[type='text'],
+body[data-path='login'] input[type='email'],
+body[data-path='login'] input[type='password'] {
+  border-radius: 9px !important;
+  font-size: 15px !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  padding: 0 15px !important;
+}
+
+body[data-path='login'] .forgot-password-message,
+body[data-path='login'] .sign-up-message {
+  font-size: 13px !important;
+}
+
+body[data-path='login'] .page-card-actions {
+  padding-top: 24px !important;
+}
+
+body[data-path='login'] .btn-primary,
+body[data-path='login'] .btn-login,
+body[data-path='login'] .btn:not(.btn-primary):not(.btn-login),
+body[data-path='login'] .btn-login-option {
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  height: 46px !important;
+}
+
+body[data-path='login'] .login-divider {
+  margin: 14px 0 !important;
+}
+
+@media (max-width: 1024px) {
+  body[data-path='login'] section.for-login,
+  body[data-path='login'] section.for-email-login,
+  body[data-path='login'] section.for-forgot,
+  body[data-path='login'] section.for-signup,
+  body[data-path='login'] section.for-login-with-email-link {
+    padding: 34px 22px !important;
+  }
+
+  body[data-path='login'] .page-card-head::before {
+    font-size: 28px;
+    margin-top: 30px;
+  }
+
+  body[data-path='login'] .page-card-head::after {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  body[data-path='login'] .for-login .page-card-body::before,
+  body[data-path='login'] .for-email-login .page-card-body::before {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 560px) {
+  body[data-path='login'] .page-card-head::before,
+  body[data-path='login'] .for-login .page-card-body::before,
+  body[data-path='login'] .for-email-login .page-card-body::before {
+    font-size: 22px;
+  }
+
+  body[data-path='login'] .page-card-head::after {
+    font-size: 16px;
+  }
+
+  body[data-path='login'] .form-control,
+  body[data-path='login'] input[type='text'],
+  body[data-path='login'] input[type='email'],
+  body[data-path='login'] input[type='password'],
+  body[data-path='login'] .btn-primary,
+  body[data-path='login'] .btn-login,
+  body[data-path='login'] .btn:not(.btn-primary):not(.btn-login),
+  body[data-path='login'] .btn-login-option {
+    font-size: 16px !important;
+    height: 50px !important;
+  }
+}
+
+
+/* Fine tune login control density and icon alignment. */
+body[data-path='login'] section.for-login,
+body[data-path='login'] section.for-email-login,
+body[data-path='login'] section.for-forgot,
+body[data-path='login'] section.for-signup,
+body[data-path='login'] section.for-login-with-email-link {
+  min-height: 100vh;
+  padding-bottom: 32px !important;
+}
+
+body[data-path='login'] .login-content.page-card {
+  margin-top: 10px !important;
+}
+
+body[data-path='login'] .for-login .page-card-body::before,
+body[data-path='login'] .for-email-login .page-card-body::before {
+  margin-bottom: 20px;
+}
+
+body[data-path='login'] .form-group {
+  margin-bottom: 14px !important;
+}
+
+body[data-path='login'] .page-card-actions {
+  padding-top: 16px !important;
+}
+
+body[data-path='login'] .login-divider {
+  margin: 10px 0 !important;
+}
+
+body[data-path='login'] .social-logins {
+  margin-top: 8px !important;
+}
+
+body[data-path='login'] .btn-primary,
+body[data-path='login'] .btn-login,
+body[data-path='login'] .btn:not(.btn-primary):not(.btn-login),
+body[data-path='login'] .btn-login-option {
+  border-radius: 9px !important;
+  font-size: 14px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 18px !important;
+}
+
+body[data-path='login'] .form-group,
+body[data-path='login'] .email-field,
+body[data-path='login'] .password-field {
+  position: relative;
+}
+
+body[data-path='login'] .form-control,
+body[data-path='login'] input[type='text'],
+body[data-path='login'] input[type='email'],
+body[data-path='login'] input[type='password'] {
+  padding-left: 44px !important;
+}
+
+body[data-path='login'] .field-icon:not(.toggle-password),
+body[data-path='login'] .form-group > svg,
+body[data-path='login'] .form-group > .octicon {
+  align-items: center !important;
+  display: inline-flex !important;
+  height: 44px !important;
+  justify-content: center !important;
+  left: 15px !important;
+  line-height: 44px !important;
+  margin: 0 !important;
+  pointer-events: none;
+  position: absolute !important;
+  top: 0 !important;
+  width: 16px !important;
+  z-index: 2;
+}
+
+body[data-path='login'] .password-field .field-icon:not(.toggle-password),
+body[data-path='login'] .password-field > svg,
+body[data-path='login'] .password-field > .octicon {
+  top: 0 !important;
+}
+
+body[data-path='login'] .toggle-password {
+  align-items: center !important;
+  display: inline-flex !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  right: 14px !important;
+  top: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  body[data-path='login'] section.for-login,
+  body[data-path='login'] section.for-email-login,
+  body[data-path='login'] section.for-forgot,
+  body[data-path='login'] section.for-signup,
+  body[data-path='login'] section.for-login-with-email-link {
+    padding-bottom: 24px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body[data-path='login'] .btn-primary,
+  body[data-path='login'] .btn-login,
+  body[data-path='login'] .btn:not(.btn-primary):not(.btn-login),
+  body[data-path='login'] .btn-login-option {
+    font-size: 14px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+  }
+}
+
+
+/* Hard override for Frappe login controls. */
+body[data-path='login'] .login-content.page-card .page-card-actions {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 12px 0 0 !important;
+}
+
+body[data-path='login'] .login-content.page-card .btn,
+body[data-path='login'] .login-content.page-card button,
+body[data-path='login'] .login-content.page-card .btn-login,
+body[data-path='login'] .login-content.page-card .btn-login-option {
+  align-items: center !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  height: 40px !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  min-height: 40px !important;
+  padding: 0 16px !important;
+  width: calc(100% - 24px) !important;
+}
+
+body[data-path='login'] .login-content.page-card .login-divider {
+  line-height: 1 !important;
+  margin: 8px 0 !important;
+}
+
+body[data-path='login'] .login-content.page-card .social-logins,
+body[data-path='login'] .login-content.page-card .login-with-email-link {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body[data-path='login'] .login-content.page-card .form-group {
+  margin-bottom: 12px !important;
+  position: relative !important;
+}
+
+body[data-path='login'] .login-content.page-card .form-control,
+body[data-path='login'] .login-content.page-card input[type='text'],
+body[data-path='login'] .login-content.page-card input[type='email'],
+body[data-path='login'] .login-content.page-card input[type='password'] {
+  font-size: 14px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  min-height: 40px !important;
+  padding: 0 44px 0 42px !important;
+}
+
+body[data-path='login'] .login-content.page-card .field-icon:not(.toggle-password),
+body[data-path='login'] .login-content.page-card .form-group > svg,
+body[data-path='login'] .login-content.page-card .form-group > .octicon {
+  bottom: auto !important;
+  display: flex !important;
+  height: 40px !important;
+  left: 14px !important;
+  line-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute !important;
+  right: auto !important;
+  top: 0 !important;
+  transform: none !important;
+  width: 16px !important;
+}
+
+body[data-path='login'] .login-content.page-card .toggle-password {
+  height: 40px !important;
+  line-height: 40px !important;
+  right: 14px !important;
+  top: 0 !important;
+}
+
+body[data-path='login'] section.for-login,
+body[data-path='login'] section.for-email-login,
+body[data-path='login'] section.for-forgot,
+body[data-path='login'] section.for-signup,
+body[data-path='login'] section.for-login-with-email-link {
+  padding-bottom: 20px !important;
+}
+
+/* Use Frappe's real login heading; do not inject a duplicate pseudo heading. */
+body[data-path='login'] .login-content.page-card .page-card-body::before,
+body[data-path='login'] .for-login .page-card-body::before,
+body[data-path='login'] .for-email-login .page-card-body::before {
+  content: none !important;
+  display: none !important;
+  margin: 0 !important;
+}
+
+/* Restore exactly one login heading after suppressing duplicates. */
+body[data-path='login'] .login-content.page-card .page-card-body::before,
+body[data-path='login'] .for-login .page-card-body::before,
+body[data-path='login'] .for-email-login .page-card-body::before {
+  color: var(--login-text) !important;
+  content: 'Welcome back\A Sign in to your zupra workspace.' !important;
+  display: block !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.25 !important;
+  margin: 0 0 20px !important;
+  white-space: pre-line !important;
+}
