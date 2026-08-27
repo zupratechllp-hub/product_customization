@@ -28,6 +28,7 @@ app_license = "mit"
 app_include_css = ["/assets/product_customization/css/product_customization.css?v=20260819_06"]
 app_include_js = [
     "/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260819_06",
+    "/assets/product_customization/js/zupra_about.js?v=20260826_01",
 ]
 
 # Branding and Custom Logo Hooks
