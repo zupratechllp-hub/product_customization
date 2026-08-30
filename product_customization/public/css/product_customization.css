@@ -3143,3 +3143,127 @@ body.custom-list-view-page .sort-selector {
   visibility: visible !important;
   white-space: nowrap !important;
   z-index: 101 !important;
+}
+
+
+.custom-ask-zupra-history-panel {
+  background: #ffffff !important;
+  border-right: 1px solid rgba(148, 163, 184, 0.42) !important;
+  box-shadow: 4px 0 16px rgba(15, 23, 42, 0.10) !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 280px !important;
+  max-width: 80vw !important;
+  z-index: 10050 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.2s ease-in-out !important;
+  padding: 0 !important;
+}
+.custom-ask-zupra-history-panel.custom-ask-zupra-history-open {
+  transform: translateX(0) !important;
+}
+.custom-ask-zupra-history-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 16px !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35) !important;
+  flex: 0 0 auto !important;
+}
+.custom-ask-zupra-history-header-title {
+  color: #0f766e !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+.custom-ask-zupra-history-close {
+  appearance: none !important;
+  background: transparent !important;
+  border: none !important;
+  color: #334155 !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  padding: 4px 8px !important;
+}
+.custom-ask-zupra-history-list {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  padding: 4px 0 !important;
+}
+.custom-ask-zupra-history-item {
+  padding: 10px 16px !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22) !important;
+  cursor: pointer !important;
+  color: #111827 !important;
+  font-size: 13.5px !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+.custom-ask-zupra-history-item:hover {
+  background: #f1f5f9 !important;
+}
+.custom-ask-zupra-history-empty {
+  padding: 16px !important;
+  color: #64748b !important;
+  font-size: 13.5px !important;
+}
+
+.custom-ask-zupra-history-toggle {
+  appearance: none !important;
+  background: transparent !important;
+  border: 1px solid rgba(148, 163, 184, 0.55) !important;
+  border-radius: 6px !important;
+  color: #334155 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 32px !important;
+  width: 32px !important;
+  padding: 0 !important;
+  position: absolute !important;
+  left: 62px !important;
+  top: 22px !important;
+}
+.custom-ask-zupra-history-toggle:hover,
+.custom-ask-zupra-history-toggle:focus {
+  background: #f1f5f9 !important;
+  outline: 2px solid rgba(15, 118, 110, 0.22) !important;
+  outline-offset: 2px !important;
+}
+
+.custom-ask-zupra-header,
+.custom-ask-zupra-messages,
+.custom-ask-zupra-greeting,
+.custom-ask-zupra-form {
+  transition: margin-left 0.2s ease-in-out !important;
+}
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-header,
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-messages,
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-greeting,
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-form {
+  margin-left: 280px !important;
+  width: calc(100% - 280px) !important;
+  box-sizing: border-box !important;
+}
+EOFcd ~/product/frappe-dev-bench/apps/product_customization/product_customization
+cat >> public/css/product_customization.css << 'EOF'
+
+.custom-ask-zupra-header,
+.custom-ask-zupra-messages,
+.custom-ask-zupra-greeting,
+.custom-ask-zupra-form {
+  transition: margin-left 0.2s ease-in-out !important;
+}
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-header,
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-messages,
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-greeting,
+.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-form {
+  margin-left: 280px !important;
+}

@@ -481,7 +481,6 @@
         if (isSettled) {
           return;
         }
-
         isSettled = true;
         resolve(answer || "The live answer service did not return a response. Please ask again.");
       };
@@ -517,7 +516,7 @@
 
       setTimeout(() => {
         finish("The live data check is taking longer than expected. Please try the question again.");
-      }, 60000);
+      }, 90000);
     });
   }
 
@@ -760,6 +759,77 @@
       });
   }
 
+  function toggleAskZupraHistory() {
+    const popup = ensureAskZupraPopup();
+    const panel = popup.querySelector(".custom-ask-zupra-history-panel");
+    if (!panel) {
+      return;
+    }
+    const isOpen = panel.classList.contains("custom-ask-zupra-history-open");
+    if (!isOpen) {
+      panel.hidden = false;
+      buildAskZupraHistoryShell(panel);
+      panel.classList.add("custom-ask-zupra-history-open");
+      popup.classList.add("custom-ask-zupra-history-active");
+      loadAskZupraHistory(panel.querySelector(".custom-ask-zupra-history-list"));
+    } else {
+      panel.classList.remove("custom-ask-zupra-history-open");
+      popup.classList.remove("custom-ask-zupra-history-active");
+      panel.hidden = true;
+    }
+  }
+  function buildAskZupraHistoryShell(panel) {
+    if (panel.querySelector(".custom-ask-zupra-history-list")) {
+      return;
+    }
+    panel.innerHTML = [
+      '<div class="custom-ask-zupra-history-header">',
+      '<div class="custom-ask-zupra-history-header-title">Previous Search</div>',
+      '</div>',
+      '<div class="custom-ask-zupra-history-list"></div>',
+    ].join("");
+  }
+  function loadAskZupraHistory(list) {
+    if (!list) {
+      return;
+    }
+    list.innerHTML = '<div class="custom-ask-zupra-history-empty">Loading history...</div>';
+    if (!window.frappe || typeof frappe.call !== "function") {
+      list.innerHTML = '<div class="custom-ask-zupra-history-empty">History is not available right now.</div>';
+      return;
+    }
+    frappe.call({
+      method: "product_customization.chatbot.get_history",
+      callback(response) {
+        const items = (response && response.message) || [];
+        if (!items.length) {
+          list.innerHTML = '<div class="custom-ask-zupra-history-empty">No recent searches yet.</div>';
+          return;
+        }
+        list.innerHTML = "";
+        items.forEach((item) => {
+          const entry = document.createElement("div");
+          entry.className = "custom-ask-zupra-history-item";
+          entry.textContent = item.question;
+          entry.addEventListener("click", () => {
+            appendAskZupraMessage("user", item.question);
+            appendAskZupraMessage("bot", item.answer);
+            const popup = ensureAskZupraPopup();
+            const panel = popup.querySelector(".custom-ask-zupra-history-panel");
+            if (panel) {
+              panel.classList.remove("custom-ask-zupra-history-open");
+              popup.classList.remove("custom-ask-zupra-history-active");
+              panel.hidden = true;
+            }
+          });
+          list.appendChild(entry);
+        });
+      },
+      error() {
+        list.innerHTML = '<div class="custom-ask-zupra-history-empty">Could not load history.</div>';
+      },
+    });
+  }
   function ensureAskZupraPopup() {
     let popup = document.getElementById(askZupraPopupId);
 
@@ -777,11 +847,13 @@
     popup.innerHTML = [
       '<div class="custom-ask-zupra-header">',
       '<button type="button" class="custom-ask-zupra-close" aria-label="Minimize Ask Zupra">x</button>',
+      '<button type="button" class="custom-ask-zupra-history-toggle" aria-label="Show recent searches"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="3.5" width="15" height="13" rx="2"/><line x1="8" y1="3.5" x2="8" y2="16.5"/></svg></button>',
       '<div>',
       '<div id="custom-ask-zupra-title" class="custom-ask-zupra-title">Ask Zupra</div>',
       '<div class="custom-ask-zupra-subtitle">Ask anything about your ERP data</div>',
       '</div>',
       '</div>',
+      '<div class="custom-ask-zupra-history-panel" hidden></div>',
       '<div class="custom-ask-zupra-messages" role="log" aria-live="polite"></div>',
       '<div class="custom-ask-zupra-greeting" aria-live="polite"></div>',
       '<form class="custom-ask-zupra-form">',
@@ -792,6 +864,7 @@
 
     document.body.appendChild(popup);
     popup.querySelector(".custom-ask-zupra-close").addEventListener("click", () => setAskZupraOpen(false));
+    popup.querySelector(".custom-ask-zupra-history-toggle").addEventListener("click", () => toggleAskZupraHistory());
     popup.querySelector(".custom-ask-zupra-form").addEventListener("submit", submitAskZupraQuestion);
     popup.querySelector(".custom-ask-zupra-input").addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
