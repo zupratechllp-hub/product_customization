@@ -3252,18 +3252,3 @@ body.custom-list-view-page .sort-selector {
   width: calc(100% - 280px) !important;
   box-sizing: border-box !important;
 }
-EOFcd ~/product/frappe-dev-bench/apps/product_customization/product_customization
-cat >> public/css/product_customization.css << 'EOF'
-
-.custom-ask-zupra-header,
-.custom-ask-zupra-messages,
-.custom-ask-zupra-greeting,
-.custom-ask-zupra-form {
-  transition: margin-left 0.2s ease-in-out !important;
-}
-.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-header,
-.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-messages,
-.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-greeting,
-.custom-ask-zupra-popup.custom-ask-zupra-history-active .custom-ask-zupra-form {
-  margin-left: 280px !important;
-}
