@@ -133,13 +133,29 @@ def _max_min_query_answer(doctype, text):
     return f"The {doctype} with the {which} {label} is {row['name']}, with {label} of {row[field]}."
 
 
+DOCTYPE_ALIASES = {
+    "sale order": "Sales Order",
+    "sales order": "Sales Order",
+    "purchase order": "Purchase Order",
+    "sale invoice": "Sales Invoice",
+    "purchase invoice": "Purchase Invoice",
+}
+
+
+def _resolve_doctype_with_aliases(question, page_title, route, sidebar_items):
+    text_lower = question.lower()
+    for phrase, doctype in DOCTYPE_ALIASES.items():
+        if phrase in text_lower:
+            return doctype
+    try:
+        return ask_zupra._resolve_doctype(question, page_title, route, sidebar_items)
+    except Exception:
+        return None
+
+
 def _try_live_data_answer(question, route, page_title, sidebar_items):
     text_lower = question.lower()
-    doctype = None
-    try:
-        doctype = ask_zupra._resolve_doctype(question, page_title, route, sidebar_items)
-    except Exception:
-        doctype = None
+    doctype = _resolve_doctype_with_aliases(question, page_title, route, sidebar_items)
 
     if doctype and _is_max_min_question(text_lower):
         try:
@@ -150,6 +166,8 @@ def _try_live_data_answer(question, route, page_title, sidebar_items):
             pass
 
     try:
+        if ask_zupra._is_workflow_question(text_lower):
+            return None
         result = ask_zupra.ask(question, route, page_title, sidebar_items)
         answer = result.get("answer", "") if isinstance(result, dict) else ""
     except Exception:
