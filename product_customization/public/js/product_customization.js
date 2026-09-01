@@ -176,7 +176,7 @@
 
     if (!currentLogo || !currentName || currentName.textContent.trim() !== "Zupra Tech") {
       brand.innerHTML = [
-        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="Zupra Tech" aria-hidden="true">',
+        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/z_logo_icon_v2.svg" alt="Zupra Tech" aria-hidden="true">',
         '<span class="custom-zupra-brand-name">Zupra Tech</span>',
       ].join("");
     }
@@ -275,7 +275,7 @@
     });
 
     // 2. Links inside cards (Reports & Masters, Data Import & Settings, etc.)
-    const linkItems = document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item");
+    const linkItems = document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item, .widget-card .link-item");
     linkItems.forEach((link) => {
       const text = (link.textContent || "").trim();
       if (!text || link.querySelector(".custom-tile-icon")) return;
@@ -331,12 +331,24 @@
       }
     };
 
-    document.querySelectorAll(".shortcut-widget-box").forEach((box) => {
-      box.classList.add("product-shortcut-tile");
-      decorate(box.querySelector("a") || box, "product-shortcut-content");
+    document.querySelectorAll(".shortcut-widget-box, .widget.shortcut-widget-box, .widget:has(.shortcut-widget-box)").forEach((box) => {
+      const shortcutBox = box.matches(".shortcut-widget-box") ? box : box.querySelector(".shortcut-widget-box") || box;
+      shortcutBox.classList.add("product-shortcut-tile");
+      const shortcutLink = shortcutBox.querySelector("a") || shortcutBox;
+      decorate(shortcutLink, "product-shortcut-content");
+
+      shortcutBox.style.setProperty("display", "flex", "important");
+      shortcutBox.style.setProperty("align-items", "center", "important");
+      shortcutBox.style.setProperty("flex-direction", "row", "important");
+      shortcutBox.style.setProperty("flex-wrap", "nowrap", "important");
+      shortcutLink.style.setProperty("align-items", "center", "important");
+      shortcutLink.style.setProperty("display", "flex", "important");
+      shortcutLink.style.setProperty("flex-direction", "row", "important");
+      shortcutLink.style.setProperty("flex-wrap", "nowrap", "important");
+      shortcutLink.style.setProperty("gap", "8px", "important");
     });
 
-    document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item").forEach((item) => {
+    document.querySelectorAll(".links-widget-box a, .report-widget-box a, .workspace-section .link-item, .widget-card .link-item").forEach((item) => {
       decorate(item.matches("a") ? item : item.querySelector("a") || item, "product-link-tile");
     });
   }
@@ -1011,6 +1023,62 @@
     markActiveSidebarItem(titleText);
   }
 
+  function getSignedInUserName() {
+    const boot = window.frappe && frappe.boot ? frappe.boot : {};
+    const bootUser = boot.user || {};
+    const sessionUser = window.frappe && frappe.session && frappe.session.user;
+    const userInfo = boot.user_info && boot.user_info[bootUser.name || sessionUser];
+    const fullName = userInfo && (userInfo.fullname || userInfo.full_name);
+    const sessionName = window.frappe && frappe.session && frappe.session.user_fullname;
+    const userName = window.frappe && frappe.user && typeof frappe.user.full_name === "function"
+      ? frappe.user.full_name()
+      : "";
+    return String(fullName || sessionName || userName || bootUser.full_name || bootUser.fullname || bootUser.name || sessionUser || "").trim();
+  }
+
+  function isHomeWorkspace() {
+    const route = window.frappe && typeof frappe.get_route === "function" ? frappe.get_route() : [];
+    const routeName = (Array.isArray(route) ? route[0] : String(route || "")).toLowerCase();
+    const path = window.location.pathname.toLowerCase().replace(/\/$/, "");
+    const title = (getTitleText(getTitleArea())?.textContent || "").trim().toLowerCase();
+    return routeName === "home" ||
+      routeName === "workspaces" ||
+      path === "/app" ||
+      path === "/app/home" ||
+      path === "/app/workspaces" ||
+      title === "home" ||
+      title === "workspace";
+  }
+
+  function updateHomeWelcome() {
+    if (!isHomeWorkspace()) {
+      document.querySelectorAll(".product-home-welcome").forEach((element) => element.remove());
+      return;
+    }
+
+    const homeContent = document.querySelector(
+      ".page-container[data-page-route=\'Workspaces\'] .workspace, .page-container[data-page-route=\'Home\'] .workspace, .page-container .workspace, .workspace, .page-container[data-page-route=\'Workspaces\'] .layout-main-section, .page-container .layout-main-section, .layout-main-section"
+    );
+    const name = getSignedInUserName();
+    if (!homeContent) return;
+
+    let welcome = homeContent.querySelector(".product-home-welcome");
+    if (!welcome) {
+      welcome = document.createElement("section");
+      welcome.className = "product-home-welcome";
+      welcome.setAttribute("aria-label", "Welcome message");
+      welcome.innerHTML = [
+        '<span class="product-home-welcome-icon" aria-hidden="true">',
+        '<svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 9h.01M15 9h.01"></path></svg>',
+        "</span>",
+        '<h2 class="product-home-welcome-title"></h2>',
+      ].join("");
+      homeContent.insertBefore(welcome, homeContent.firstChild);
+    }
+    welcome.querySelector(".product-home-welcome-title").textContent = `Welcome ${name}`;
+    homeContent.insertBefore(welcome, homeContent.firstChild);
+  }
+
   function safeRun(fn) {
     try {
       fn();
@@ -1031,6 +1099,7 @@
       safeRun(fixSearchBar);
       safeRun(injectTileIcons);
       safeRun(enhanceWorkspaceTiles);
+      safeRun(updateHomeWelcome);
       safeRun(updateSidebarContext);
     }, delay));
   }
