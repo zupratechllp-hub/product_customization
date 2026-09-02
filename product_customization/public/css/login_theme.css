@@ -764,10 +764,8 @@ body[data-path='login'] .for-email-login .page-card-body::before {
   margin: 0 !important;
 }
 
-/* Restore exactly one login heading after suppressing duplicates. */
-body[data-path='login'] .login-content.page-card .page-card-body::before,
-body[data-path='login'] .for-login .page-card-body::before,
-body[data-path='login'] .for-email-login .page-card-body::before {
+/* Show the login heading only on the inner form body, not the outer wrapper. */
+body[data-path='login'] section.for-login .login-content.page-card .page-card-body .page-card-body::before {
   color: var(--login-text) !important;
   content: 'Welcome back\A Sign in to your zupra workspace.' !important;
   display: block !important;

@@ -1,13 +1,27 @@
 (function () {
-  const version = "20260819_06";
+  const version = "20260902_02";
+  let stylesheetRefreshTimer = null;
+  let themeObserver = null;
+  let bodyThemeObserved = false;
+
+  function keepStylesheetLast(link) {
+    if (link && link.parentNode === document.head && link.nextElementSibling) {
+      document.head.appendChild(link);
+    }
+  }
 
   function loadStylesheet() {
     const href = `/assets/product_customization/css/product_customization.css?v=${version}`;
     const existing = document.querySelector("link[data-product-theme-css]");
 
     if (existing) {
-      existing.href = href;
-      existing.setAttribute("data-product-theme-css", version);
+      if (existing.getAttribute("href") !== href) {
+        existing.href = href;
+      }
+      if (existing.getAttribute("data-product-theme-css") !== version) {
+        existing.setAttribute("data-product-theme-css", version);
+      }
+      keepStylesheetLast(existing);
       return;
     }
 
@@ -16,6 +30,34 @@
     link.href = href;
     link.setAttribute("data-product-theme-css", version);
     document.head.appendChild(link);
+  }
+
+  function scheduleStylesheetRefresh() {
+    window.clearTimeout(stylesheetRefreshTimer);
+    stylesheetRefreshTimer = window.setTimeout(loadStylesheet, 0);
+  }
+
+  function observeThemeChanges() {
+    if (!window.MutationObserver || !document.head) {
+      return;
+    }
+
+    if (!themeObserver) {
+      themeObserver = new MutationObserver(scheduleStylesheetRefresh);
+      themeObserver.observe(document.head, { childList: true });
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class", "data-theme"],
+      });
+    }
+
+    if (document.body && !bodyThemeObserved) {
+      themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ["class", "data-theme"],
+      });
+      bodyThemeObserved = true;
+    }
   }
 
   function loadScript() {
@@ -129,7 +171,9 @@
   }
 
   loadStylesheet();
+  observeThemeChanges();
   onReady(() => {
+    observeThemeChanges();
     ensureAskZupraFallbackButton();
     loadScript();
     setTimeout(ensureAskZupraFallbackButton, 300);

@@ -3474,3 +3474,197 @@ body.custom-list-view-page .sort-selector {
   width: calc(100% - 280px) !important;
   box-sizing: border-box !important;
 }
+
+/* Keep light workspace surfaces readable after Frappe switches to dark mode. */
+[data-theme="dark"] :where(
+  .page-head,
+  .page-content,
+  .layout-main,
+  .layout-main-section-wrapper,
+  .layout-main-section,
+  .workspace,
+  .workspace-container,
+  .workspace-page,
+  .workspace-body,
+  .workspace-content,
+  .workspace-section,
+  .workspace-section-body
+) {
+  color-scheme: light !important;
+  --bg-color: var(--product-theme-main-bg);
+  --fg-color: var(--product-theme-card-bg);
+  --card-bg: var(--product-theme-card-bg);
+  --control-bg: var(--product-theme-card-bg);
+  --border-color: var(--product-theme-border);
+  --dark-border-color: var(--product-theme-border);
+  --text-color: var(--product-theme-primary-text);
+  --heading-color: var(--product-theme-primary-text);
+  --sub-heading-color: var(--product-theme-primary-text);
+  --text-muted: var(--product-theme-muted-text);
+  --text-light: var(--product-theme-muted-text);
+  --disabled-text-color: #94a3b8;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+[data-theme="dark"] :where(
+  .page-head,
+  .page-content,
+  .layout-main,
+  .layout-main-section-wrapper,
+  .layout-main-section,
+  .workspace,
+  .workspace-container,
+  .workspace-page,
+  .workspace-body,
+  .workspace-content,
+  .workspace-section,
+  .workspace-section-body
+) {
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  .page-content,
+  .layout-main,
+  .layout-main-section-wrapper,
+  .layout-main-section,
+  .workspace,
+  .workspace-container,
+  .workspace-page,
+  .workspace-body,
+  .workspace-content,
+  .workspace-section,
+  .workspace-section-body
+) {
+  background-color: var(--product-theme-main-bg) !important;
+}
+
+[data-theme="dark"] :where(
+  .page-head,
+  .page-head .page-head-row,
+  .page-head .page-head-wrapper,
+  .page-head .page-head-content,
+  .page-head .title-area,
+  .page-head .page-head-actions,
+  .card,
+  .panel,
+  .page-card,
+  .row-card,
+  .frappe-card,
+  .dashboard-card,
+  .page-body-card,
+  .form-card,
+  .list-card,
+  .standard-card,
+  .widget,
+  .widget-body,
+  .onboarding-widget-box,
+  .onboarding-step-preview,
+  .onboarding-step,
+  .product-home-welcome
+) {
+  background-color: var(--product-theme-card-bg) !important;
+  border-color: var(--product-theme-border) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] .layout-main :where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  dt,
+  dd,
+  label,
+  strong,
+  .page-title,
+  .title-text,
+  .widget-title,
+  .widget-label,
+  .card-title,
+  .card-heading,
+  .section-title,
+  .onboarding-step,
+  .onboarding-step-title,
+  .onboarding-step-label,
+  .onboarding-step-preview,
+  .product-home-welcome-title,
+  .link-item,
+  .link-content,
+  .link-title,
+  .list-row,
+  .level-item,
+  .ellipsis
+):not(.btn):not(.btn *) {
+  color: var(--product-theme-primary-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .layout-main :where(
+  .text-muted,
+  .small,
+  .help-text,
+  .description,
+  .page-description,
+  .subtitle,
+  .sub-title
+):not(.btn):not(.btn *) {
+  color: var(--product-theme-muted-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .product-home-welcome-title {
+  color: #172554 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .onboarding-widget-box :where(.btn-secondary, .btn-default, .btn-light, .btn-tertiary) {
+  color: var(--product-theme-primary-text) !important;
+}
+[data-theme="dark"] .layout-main .onboarding-widget-box,
+[data-theme="dark"] .layout-main .onboarding-widget-box .widget-body,
+[data-theme="dark"] .layout-main .onboarding-widget-box .onboarding-step,
+[data-theme="dark"] .layout-main .onboarding-widget-box .onboarding-step-preview {
+  background-color: var(--product-theme-card-bg) !important;
+  color: var(--product-theme-primary-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .layout-main .onboarding-widget-box h1,
+[data-theme="dark"] .layout-main .onboarding-widget-box h2,
+[data-theme="dark"] .layout-main .onboarding-widget-box h3,
+[data-theme="dark"] .layout-main .onboarding-widget-box h4,
+[data-theme="dark"] .layout-main .onboarding-widget-box h5,
+[data-theme="dark"] .layout-main .onboarding-widget-box h6,
+[data-theme="dark"] .layout-main .onboarding-widget-box p,
+[data-theme="dark"] .layout-main .onboarding-widget-box li,
+[data-theme="dark"] .layout-main .onboarding-widget-box label,
+[data-theme="dark"] .layout-main .onboarding-widget-box .widget-title,
+[data-theme="dark"] .layout-main .onboarding-widget-box .widget-label,
+[data-theme="dark"] .layout-main .onboarding-widget-box .onboarding-step-title,
+[data-theme="dark"] .layout-main .onboarding-widget-box .onboarding-step-label,
+[data-theme="dark"] .layout-main .product-home-welcome .product-home-welcome-title {
+  color: var(--product-theme-primary-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .layout-main .onboarding-widget-box .text-muted,
+[data-theme="dark"] .layout-main .onboarding-widget-box .small,
+[data-theme="dark"] .layout-main .onboarding-widget-box .help-text,
+[data-theme="dark"] .layout-main .onboarding-widget-box .description {
+  color: var(--product-theme-muted-text) !important;
+  opacity: 1 !important;
+}
