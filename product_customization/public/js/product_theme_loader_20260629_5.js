@@ -1,5 +1,5 @@
 (function () {
-  const version = "20260902_02";
+  const version = "20260902_05";
   let stylesheetRefreshTimer = null;
   let themeObserver = null;
   let bodyThemeObserved = false;

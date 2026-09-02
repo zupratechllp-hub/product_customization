@@ -3310,10 +3310,23 @@ body.custom-list-view-page .sort-selector {
   text-align: left !important;
 }
 
+/* Keep rendered logos flush wherever Frappe or the custom header displays them. */
+.navbar .app-logo,
+.navbar-default .app-logo,
+.top-bar .app-logo,
+.navbar .custom-zupra-brand-logo,
+.navbar-default .custom-zupra-brand-logo,
+.top-bar .custom-zupra-brand-logo,
+.custom-zupra-brand-logo {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* Give the brand a clean logo-to-name gap and keep it away from header controls. */
 .navbar .custom-zupra-brand,
 .top-bar .custom-zupra-brand {
   gap: 18px !important;
+  padding-left: 0 !important;
   padding-right: 34px !important;
 }
 
