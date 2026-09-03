@@ -12,6 +12,8 @@ def update_website_context(context):
 def extend_bootinfo(bootinfo):
     bootinfo.app_logo_url = LOGO_PATH
 
+    bootinfo.lang_dict["Plant Floor"] = "Plant"
+    bootinfo.lang_dict["Visual Plant Floor"] = "Visual Plant"
 def after_migrate():
     # Update settings in database to ensure standard fallback works
     try:
