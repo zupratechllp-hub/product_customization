@@ -176,7 +176,7 @@
 
     if (!currentLogo || !currentName || currentName.textContent.trim() !== "Zupra Tech") {
       brand.innerHTML = [
-        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/z_logo_icon_v2.svg" alt="Zupra Tech" aria-hidden="true">',
+        '<img class="custom-zupra-brand-logo" src="/assets/product_customization/images/zupra_logo.png" alt="Zupra Tech" aria-hidden="true">',
         '<span class="custom-zupra-brand-name">Zupra Tech</span>',
       ].join("");
     }
