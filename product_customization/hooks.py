@@ -25,9 +25,9 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/product_customization/css/product_customization.css?v=20260903_02"]
+app_include_css = ["/assets/product_customization/css/product_customization.css?v=20260905_03"]
 app_include_js = [
-    "/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260903_02",
+    "/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260905_03",
     "/assets/product_customization/js/zupra_about.js?v=20260826_01",
     "/assets/product_customization/js/plant_label.js?v=20260903_01",
 ]
