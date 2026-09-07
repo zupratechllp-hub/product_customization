@@ -3681,3 +3681,484 @@ body.custom-list-view-page .sort-selector {
   color: var(--product-theme-muted-text) !important;
   opacity: 1 !important;
 }
+/* Complete dark mode: keep custom Desk chrome and every Frappe field readable. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --product-theme-sidebar-bg: #111827;
+  --product-theme-sidebar-active-bg: #2563eb;
+  --product-theme-sidebar-active-text: #ffffff;
+  --product-theme-sidebar-active-icon: #ffffff;
+  --product-theme-active: #60a5fa;
+  --product-theme-main-bg: #0f172a;
+  --product-theme-card-bg: #172033;
+  --product-theme-primary-text: #f8fafc;
+  --product-theme-muted-text: #cbd5e1;
+  --product-theme-border: #334155;
+  --product-theme-control-bg: #0f172a;
+  --product-theme-control-hover-bg: #1e293b;
+  --product-theme-control-disabled-bg: #111827;
+  --product-theme-control-border: #475569;
+  --product-theme-control-placeholder: #94a3b8;
+  --product-theme-control-focus: #93c5fd;
+  --product-theme-popover-bg: #172033;
+  --product-theme-popover-hover-bg: #243247;
+  --product-theme-popover-shadow: 0 14px 32px rgba(0, 0, 0, 0.48);
+  --bg-color: var(--product-theme-main-bg);
+  --fg-color: var(--product-theme-card-bg);
+  --card-bg: var(--product-theme-card-bg);
+  --control-bg: var(--product-theme-control-bg);
+  --border-color: var(--product-theme-border);
+  --dark-border-color: var(--product-theme-border);
+  --text-color: var(--product-theme-primary-text);
+  --heading-color: var(--product-theme-primary-text);
+  --sub-heading-color: var(--product-theme-primary-text);
+  --text-muted: var(--product-theme-muted-text);
+  --text-light: var(--product-theme-muted-text);
+  --disabled-text-color: #94a3b8;
+}
+
+[data-theme="dark"] :where(
+  .page-head,
+  .page-content,
+  .page-wrapper,
+  .page-body,
+  .page-container,
+  .layout-main,
+  .layout-main-section-wrapper,
+  .layout-main-section,
+  .workspace,
+  .workspace-container,
+  .workspace-page,
+  .workspace-body,
+  .workspace-content,
+  .workspace-section,
+  .workspace-section-body,
+  .form-layout,
+  .form-section,
+  .form-dashboard,
+  .form-tabs-list,
+  .tab-content,
+  .list-view,
+  .frappe-list,
+  .report-wrapper,
+  .datatable,
+  .modal-content,
+  .dropdown-menu,
+  .popover,
+  .awesomplete > ul
+) {
+  color-scheme: dark !important;
+  --bg-color: var(--product-theme-main-bg) !important;
+  --fg-color: var(--product-theme-card-bg) !important;
+  --card-bg: var(--product-theme-card-bg) !important;
+  --control-bg: var(--product-theme-control-bg) !important;
+  --border-color: var(--product-theme-border) !important;
+  --dark-border-color: var(--product-theme-border) !important;
+  --text-color: var(--product-theme-primary-text) !important;
+  --heading-color: var(--product-theme-primary-text) !important;
+  --sub-heading-color: var(--product-theme-primary-text) !important;
+  --text-muted: var(--product-theme-muted-text) !important;
+  --text-light: var(--product-theme-muted-text) !important;
+  --disabled-text-color: #94a3b8 !important;
+}
+
+[data-theme="dark"] :where(
+  body,
+  .desk-page,
+  .page,
+  .page-wrapper,
+  .page-body,
+  .page-container,
+  .page-content,
+  .layout-main,
+  .layout-main-section-wrapper,
+  .layout-main-section,
+  .workspace,
+  .workspace-container,
+  .workspace-page,
+  .workspace-body,
+  .workspace-content,
+  .workspace-section,
+  .workspace-section-body,
+  .report-wrapper,
+  .list-view,
+  .frappe-list
+) {
+  background-color: var(--product-theme-main-bg) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  .page-head,
+  .page-head .page-head-row,
+  .page-head .page-head-wrapper,
+  .page-head .page-head-content,
+  .page-head .title-area,
+  .page-head .page-head-actions,
+  .card,
+  .panel,
+  .page-card,
+  .row-card,
+  .frappe-card,
+  .dashboard-card,
+  .page-body-card,
+  .form-card,
+  .list-card,
+  .standard-card,
+  .widget,
+  .widget-body,
+  .onboarding-widget-box,
+  .onboarding-step-preview,
+  .onboarding-step,
+  .product-home-welcome,
+  .form-section,
+  .form-column,
+  .form-dashboard,
+  .form-tabs-list,
+  .form-grid,
+  .grid-heading-row,
+  .grid-row,
+  .grid-footer,
+  .list-row,
+  .list-row-head,
+  .list-paging-area,
+  .report-summary,
+  .datatable,
+  .dt-scrollable,
+  .modal-content,
+  .modal-header,
+  .modal-body,
+  .modal-footer,
+  .dropdown-menu,
+  .popover
+) {
+  background-color: var(--product-theme-card-bg) !important;
+  border-color: var(--product-theme-border) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  input,
+  textarea,
+  select,
+  .form-control,
+  .input-with-feedback,
+  .input-area input,
+  .input-area textarea,
+  .select-area select,
+  .select-box,
+  .data-table input,
+  .dt-cell__edit,
+  .link-field input,
+  .awesomplete input,
+  .control-input input,
+  .control-input textarea,
+  .control-input select,
+  .control-value,
+  .like-disabled-input,
+  .ql-editor,
+  .CodeMirror,
+  .ace_editor
+):not(.navbar input):not(.top-bar input) {
+  background-color: var(--product-theme-control-bg) !important;
+  border-color: var(--product-theme-control-border) !important;
+  color: var(--product-theme-primary-text) !important;
+  caret-color: var(--product-theme-primary-text) !important;
+  -webkit-text-fill-color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  input:hover,
+  textarea:hover,
+  select:hover,
+  .form-control:hover,
+  .input-with-feedback:hover,
+  .control-input input:hover,
+  .control-input textarea:hover,
+  .control-input select:hover
+):not(.navbar input):not(.top-bar input) {
+  background-color: var(--product-theme-control-hover-bg) !important;
+}
+
+[data-theme="dark"] :where(
+  input:focus,
+  textarea:focus,
+  select:focus,
+  .form-control:focus,
+  .input-with-feedback:focus,
+  .control-input input:focus,
+  .control-input textarea:focus,
+  .control-input select:focus,
+  .ql-editor:focus,
+  .CodeMirror-focused
+):not(.navbar input):not(.top-bar input) {
+  border-color: var(--product-theme-control-focus) !important;
+  box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.22) !important;
+  outline: none !important;
+}
+
+[data-theme="dark"] :where(
+  input[disabled],
+  textarea[disabled],
+  select[disabled],
+  input[readonly],
+  textarea[readonly],
+  .form-control[disabled],
+  .form-control[readonly],
+  .disabled,
+  .like-disabled-input,
+  .control-value
+):not(.navbar input):not(.top-bar input) {
+  background-color: var(--product-theme-control-disabled-bg) !important;
+  color: var(--product-theme-muted-text) !important;
+  -webkit-text-fill-color: var(--product-theme-muted-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] :where(input, textarea, .form-control)::placeholder {
+  color: var(--product-theme-control-placeholder) !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: var(--product-theme-control-placeholder) !important;
+}
+
+[data-theme="dark"] :where(
+  label,
+  .control-label,
+  .field-label,
+  .form-section-heading,
+  .section-head,
+  .grid-heading-row,
+  .grid-static-col,
+  .list-row,
+  .list-subject,
+  .level-item,
+  .ellipsis,
+  .dropdown-item,
+  .dropdown-header,
+  .modal-title,
+  .indicator-pill,
+  .comment-input-header,
+  .comment-input-wrapper,
+  .ql-editor p,
+  .ql-editor span,
+  .CodeMirror-line,
+  .ace_content
+):not(.btn):not(.btn *) {
+  color: var(--product-theme-primary-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] :where(
+  .text-muted,
+  .small,
+  .help-text,
+  .description,
+  .page-description,
+  .subtitle,
+  .sub-title,
+  .control-value.like-disabled-input,
+  .list-row .text-muted,
+  .grid-row .text-muted
+):not(.btn):not(.btn *) {
+  color: var(--product-theme-muted-text) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] :where(
+  .awesomplete > ul,
+  .awesomplete [role="listbox"],
+  .autocomplete-list,
+  .search-dialog,
+  .link-selector,
+  .dropdown-menu,
+  .popover,
+  .select2-dropdown
+) {
+  background-color: var(--product-theme-popover-bg) !important;
+  border-color: var(--product-theme-border) !important;
+  box-shadow: var(--product-theme-popover-shadow) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  .awesomplete > ul li,
+  .awesomplete > ul a,
+  .awesomplete > ul span,
+  .autocomplete-list li,
+  .search-dialog *,
+  .link-selector *,
+  .dropdown-menu *,
+  .popover *,
+  .select2-results__option
+) {
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  .awesomplete > ul li:hover,
+  .awesomplete > ul li[aria-selected="true"],
+  .autocomplete-list li:hover,
+  .dropdown-item:hover,
+  .dropdown-item:focus,
+  .select2-results__option--highlighted
+) {
+  background-color: var(--product-theme-popover-hover-bg) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  .btn-secondary,
+  .btn-default,
+  .btn-outline,
+  .btn-light,
+  .btn-tertiary,
+  .input-group-text,
+  .link-btn
+) {
+  background-color: var(--product-theme-control-hover-bg) !important;
+  border-color: var(--product-theme-control-border) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme="dark"] :where(
+  .dt-header,
+  .dt-cell,
+  .dt-row,
+  .dt-scrollable,
+  .data-table,
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr,
+  .data-table td,
+  .data-table th,
+  .table,
+  .table th,
+  .table td
+) {
+  background-color: var(--product-theme-card-bg) !important;
+  border-color: var(--product-theme-border) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+/* Dark shortcut hover contrast fix. */
+[data-theme="dark"] .workspace :where(
+  .shortcut-widget-box,
+  .product-shortcut-tile,
+  .widget.shortcut-widget-box,
+  .widget.product-shortcut-tile
+):is(:hover, :focus-within),
+[data-theme="dark"] .workspace :where(
+  .shortcut-widget-box,
+  .product-shortcut-tile,
+  .widget.shortcut-widget-box,
+  .widget.product-shortcut-tile
+):is(.active, .selected) {
+  background-color: #243247 !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.36), 0 0 0 1px rgba(96, 165, 250, 0.2) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .workspace :where(
+  .shortcut-widget-box,
+  .product-shortcut-tile,
+  .widget.shortcut-widget-box,
+  .widget.product-shortcut-tile
+):is(:hover, :focus-within, .active, .selected) :where(
+  a,
+  div,
+  span,
+  p,
+  i,
+  svg,
+  .widget-title,
+  .widget-label,
+  .shortcut-title,
+  .title,
+  .count,
+  .indicator-pill,
+  .link-item,
+  .link-content,
+  .link-title,
+  .ellipsis,
+  .text-muted
+) {
+  color: #f8fafc !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  stroke: currentColor !important;
+}
+
+[data-theme="dark"] .workspace :where(
+  .shortcut-widget-box,
+  .product-shortcut-tile,
+  .widget.shortcut-widget-box,
+  .widget.product-shortcut-tile
+):is(:hover, :focus-within, .active, .selected) svg [stroke] {
+  stroke: #93c5fd !important;
+}
+
+[data-theme="dark"] .workspace :where(
+  .shortcut-widget-box,
+  .product-shortcut-tile,
+  .widget.shortcut-widget-box,
+  .widget.product-shortcut-tile
+):is(:hover, :focus-within, .active, .selected) svg [fill]:not([fill="none"]) {
+  fill: #93c5fd !important;
+}
+
+[data-theme="dark"] .workspace :where(
+  .shortcut-widget-box,
+  .product-shortcut-tile,
+  .widget.shortcut-widget-box,
+  .widget.product-shortcut-tile
+):is(:hover, :focus-within, .active, .selected) :where(.count, .indicator-pill) {
+  background-color: #1e3a5f !important;
+  color: #bfdbfe !important;
+}
+
+
+/* Final dark-mode shortcut guard: prevent Frappe shortcut tiles from reverting to white. */
+[data-theme=dark] .workspace .shortcut-widget-box,
+[data-theme=dark] .workspace .product-shortcut-tile,
+[data-theme=dark] .workspace .widget.shortcut-widget-box,
+[data-theme=dark] .workspace .widget.product-shortcut-tile,
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box) {
+  background: var(--product-theme-card-bg) !important;
+  background-color: var(--product-theme-card-bg) !important;
+  border-color: var(--product-theme-border) !important;
+  color: var(--product-theme-primary-text) !important;
+}
+
+[data-theme=dark] .workspace .shortcut-widget-box:hover,
+[data-theme=dark] .workspace .shortcut-widget-box:focus-within,
+[data-theme=dark] .workspace .shortcut-widget-box:has(:is(a:hover, a:focus, .active, .selected)),
+[data-theme=dark] .workspace .product-shortcut-tile:hover,
+[data-theme=dark] .workspace .product-shortcut-tile:focus-within,
+[data-theme=dark] .workspace .product-shortcut-tile:has(:is(a:hover, a:focus, .active, .selected)),
+[data-theme=dark] .workspace .widget.shortcut-widget-box:hover,
+[data-theme=dark] .workspace .widget.shortcut-widget-box:focus-within,
+[data-theme=dark] .workspace .widget.product-shortcut-tile:hover,
+[data-theme=dark] .workspace .widget.product-shortcut-tile:focus-within,
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box):hover,
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box):focus-within,
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box a:hover),
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box a:focus),
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box .active),
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box .selected) {
+  background: #243247 !important;
+  background-color: #243247 !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.36), 0 0 0 1px rgba(96, 165, 250, 0.2) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme=dark] .workspace .shortcut-widget-box:is(:hover, :focus-within) :where(a, .widget-head, .widget-body, .product-shortcut-content),
+[data-theme=dark] .workspace .shortcut-widget-box:has(:is(a:hover, a:focus, .active, .selected)) :where(a, .widget-head, .widget-body, .product-shortcut-content),
+[data-theme=dark] .workspace .product-shortcut-tile:is(:hover, :focus-within) :where(a, .widget-head, .widget-body, .product-shortcut-content),
+[data-theme=dark] .workspace .product-shortcut-tile:has(:is(a:hover, a:focus, .active, .selected)) :where(a, .widget-head, .widget-body, .product-shortcut-content),
+[data-theme=dark] .workspace .widget:has(.shortcut-widget-box):is(:hover, :focus-within) :where(a, .widget-head, .widget-body, .product-shortcut-content) {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+}
