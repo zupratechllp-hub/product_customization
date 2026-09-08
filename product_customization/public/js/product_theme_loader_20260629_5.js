@@ -212,3 +212,69 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install, { once: true });
   else install();
 })();
+
+/* Preserve organisation-structure context for its setup links. */
+(() => {
+  const contextKey = "zupra_organisation_structure_breadcrumb";
+  const workspacePath = "/app/organisation-structure";
+  const destinations = {
+    "/app/customer": "Client",
+    "/app/company": "Company code",
+    "/app/account": "Chart account",
+    "/app/plant-floor": "Plant",
+    "/app/warehouse": "Storage location",
+  };
+
+  function getDestinationLabel(path) {
+    const destination = Object.entries(destinations).find(([destinationPath]) =>
+      path === destinationPath || path.startsWith(`${destinationPath}/`)
+    );
+    return destination ? destination[1] : "";
+  }
+
+  function saveContext(event) {
+    if (window.location.pathname.replace(/\/$/, "") !== workspacePath) return;
+
+    const link = event.target.closest("a[href]");
+    const widget = event.target.closest(".link-item, .shortcut-widget-box, .widget");
+    const path = link ? new URL(link.href, window.location.origin).pathname.replace(/\/$/, "") : "";
+    const labelFromUrl = getDestinationLabel(path);
+    const widgetText = (widget?.textContent || "").replace(/\s+/g, " ").trim();
+    const labelFromWidget = Object.values(destinations).find((label) => widgetText === label);
+    const label = labelFromUrl || labelFromWidget;
+
+    if (label) sessionStorage.setItem(contextKey, label);
+  }
+
+  function updateBreadcrumb() {
+    const path = window.location.pathname.replace(/\/$/, "");
+    const label = getDestinationLabel(path);
+    if (!label || sessionStorage.getItem(contextKey) !== label) {
+      if (path !== workspacePath) sessionStorage.removeItem(contextKey);
+      return;
+    }
+
+    const breadcrumbs = document.querySelector("#navbar-breadcrumbs, .navbar-breadcrumbs");
+    const expectedText = `Organisation structure ${label}`;
+    const breadcrumbText = breadcrumbs?.textContent.replace(/\s+/g, " ").trim();
+    if (!breadcrumbs || breadcrumbText === expectedText) return;
+    breadcrumbs.replaceChildren();
+
+    const workspaceLink = document.createElement("a");
+    workspaceLink.href = workspacePath;
+    workspaceLink.textContent = "Organisation structure";
+    const separator = document.createTextNode("  ");
+    const current = document.createElement("span");
+    current.textContent = label;
+    breadcrumbs.append(workspaceLink, separator, current);
+  }
+
+  document.addEventListener("click", saveContext, true);
+  const scheduleUpdate = () => window.setTimeout(updateBreadcrumb, 0);
+  window.frappe?.router?.on?.("change", scheduleUpdate);
+  document.addEventListener("DOMContentLoaded", scheduleUpdate);
+  new MutationObserver(scheduleUpdate).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
+})();
