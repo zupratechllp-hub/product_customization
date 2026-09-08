@@ -1,5 +1,3 @@
-const PLANT_WAREHOUSES = ["Finished Goods", "Stores", "Work In Progress"];
-
 function fitPlantFloorPanelToViewport(frm) {
 	const formLayout = frm.wrapper?.querySelector(".form-layout");
 
@@ -13,6 +11,28 @@ function fitPlantFloorPanelToViewport(frm) {
 	formLayout.style.minHeight = `${Math.max(0, Math.ceil(viewportHeight - panelTop))}px`;
 }
 
+function markWarehouseAdditionsDirty(frm) {
+	const warehouseField = frm.fields_dict.warehouses;
+
+	if (!warehouseField || warehouseField._plantFloorDirtyHandlerInstalled) {
+		return;
+	}
+
+	const parse = warehouseField.parse;
+	warehouseField.parse = function (value, label) {
+		const rows = parse.call(this, value, label);
+
+		// Table MultiSelect appends a row to the existing array without triggering Form.dirty().
+		if (typeof value === "string" && value) {
+                frm.enable_save();
+			frm.dirty();
+		}
+
+		return rows;
+	};
+	warehouseField._plantFloorDirtyHandlerInstalled = true;
+}
+
 frappe.ui.form.on("Plant Floor", {
 	setup(frm) {
 		frm.set_query("warehouses", () => ({
@@ -20,11 +40,11 @@ frappe.ui.form.on("Plant Floor", {
 				company: frm.doc.company,
 				is_group: 0,
 				disabled: 0,
-				warehouse_name: ["in", PLANT_WAREHOUSES],
 			},
 		}));
 	},
 	refresh(frm) {
+		markWarehouseAdditionsDirty(frm);
 		window.requestAnimationFrame(() => fitPlantFloorPanelToViewport(frm));
 
 		if (frm._plantFloorViewportHandler) {
