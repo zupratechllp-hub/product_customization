@@ -1527,19 +1527,6 @@ body.custom-list-view-page .filter-button,
   margin-right: 12px !important;
 }
 
-body[data-route^="List/"] .list-row-head .level-left,
-body.custom-list-view-page .list-row-head .level-left,
-.page-body:has(.list-row-head) .list-row-head .level-left {
-  min-width: 0 !important;
-}
-
-body[data-route^="List/"] .list-row-head .level-right,
-body.custom-list-view-page .list-row-head .level-right,
-.page-body:has(.list-row-head) .list-row-head .level-right {
-  flex: 0 0 auto !important;
-  margin-left: 12px !important;
-}
-
 /* Form view centering - handled in media query block above */
 /* Additional fallback for non-media-query contexts */
 body[data-route^="Form/"] .layout-side-section,
@@ -2342,6 +2329,26 @@ body.custom-quotation-list-page .frappe-list > .no-result {
   z-index: 10050 !important;
 }
 
+.custom-ask-zupra-environment {
+  align-items: center !important;
+  background: #1f2937 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 6px !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  height: 34px !important;
+  justify-content: center !important;
+  min-width: 160px !important;
+  padding: 0 14px !important;
+  pointer-events: none !important;
+  position: fixed !important;
+  top: 8px !important;
+  white-space: nowrap !important;
+  z-index: 10050 !important;
+}
+
 .custom-ask-zupra-button:hover,
 .custom-ask-zupra-button:focus,
 .custom-ask-zupra-button.is-open,
@@ -2354,6 +2361,12 @@ body.custom-quotation-list-page .frappe-list > .no-result {
 .top-bar .custom-ask-zupra-button:hover,
 .top-bar .custom-ask-zupra-button:focus,
 .top-bar .custom-ask-zupra-button.is-open {
+  background: #115e59 !important;
+  color: #ffffff !important;
+  outline: 2px solid rgba(45, 212, 191, 0.42) !important;
+  outline-offset: 2px !important;
+}
+.custom-ask-zupra-button.is-open {
   background: #115e59 !important;
   color: #ffffff !important;
   outline: 2px solid rgba(45, 212, 191, 0.42) !important;

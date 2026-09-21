@@ -407,6 +407,45 @@
     button.style.setProperty("--custom-ask-zupra-top", `${Math.round(top)}px`);
   }
 
+  function getEnvironmentLabel() {
+    const host = String(window.location.hostname || "").toLowerCase();
+    const port = String(window.location.port || "");
+    const developerMode = window.frappe?.boot?.developer_mode;
+
+    const isDevelopmentServer =
+      developerMode === true ||
+      developerMode === 1 ||
+      developerMode === "1" ||
+      developerMode === "true" ||
+      !host ||
+      host === "localhost" ||
+      host === "zupra" ||
+      host === "127.0.0.1" ||
+      host === "0.0.0.0" ||
+      port === "8000" ||
+      /(^|[-.])(dev|development|test|testing|staging|uat)([-.]|$)/i.test(host);
+
+    const isProductionServer = /(^|[-.])prod(uction)?([-.]|$)/i.test(host);
+
+    if (isDevelopmentServer) return "Test";
+    if (isProductionServer) return "Prod";
+
+    // Any unrecognized public host is treated as production by default.
+    return "Prod";
+  }
+  function positionEnvironmentBadge(button) {
+    let badge = document.querySelector(".custom-ask-zupra-environment");
+    if (!badge) {
+      badge = document.createElement("span");
+      badge.className = "custom-ask-zupra-environment";
+      badge.setAttribute("aria-label", "Environment");
+      document.body.appendChild(badge);
+    }
+    const rect = button.getBoundingClientRect();
+    badge.textContent = getEnvironmentLabel();
+    badge.style.left = `${Math.max(12, Math.round(rect.left - 180))}px`;
+    badge.style.top = `${Math.round(rect.top)}px`;
+  }
   function createAskZupraButton() {
     const button = document.createElement("button");
     button.type = "button";
@@ -453,6 +492,7 @@
     }
 
     positionAskZupraButton(button, navbar, searchTarget);
+    positionEnvironmentBadge(button);
     document.body.classList.add("custom-ask-zupra-ready");
   }
 
