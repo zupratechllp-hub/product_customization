@@ -281,15 +281,6 @@
       link.href = href;
       link.textContent = text;
       link.style.cursor = "pointer";
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (window.frappe?.set_route) {
-          window.frappe.set_route(href.replace(/^\/app\//, ""));
-        } else {
-          window.location.assign(href);
-        }
-      });
       item.append(link);
       return item;
     };
