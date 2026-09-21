@@ -232,6 +232,16 @@
     return destination ? destination[1] : "";
   }
 
+  function getCurrentRouteLabel(path, destinationPath, destinationLabel) {
+    if (!destinationPath || path === destinationPath) return "";
+
+    const routeName = decodeURIComponent(path.slice(destinationPath.length + 1)).split("/")[0];
+    // New documents have an internal route such as `new-plant-floor-1`, but
+    // their navbar label should match the form title users see.
+    if (routeName.startsWith("new-")) return `New ${destinationLabel}`;
+    return routeName.replace(/-/g, " ");
+  }
+
   function saveContext(event) {
     if (window.location.pathname.replace(/\/$/, "") !== workspacePath) return;
 
@@ -254,20 +264,59 @@
       return;
     }
 
+    const destinationPath = Object.keys(destinations).find((candidate) =>
+      path === candidate || path.startsWith(`${candidate}/`)
+    );
+    const currentLabel = getCurrentRouteLabel(path, destinationPath, label);
     const breadcrumbs = document.querySelector("#navbar-breadcrumbs, .navbar-breadcrumbs");
-    const expectedText = `Organisation structure ${label}`;
+    const expectedText = ["Organisation structure", label, currentLabel].filter(Boolean).join(" ");
     const breadcrumbText = breadcrumbs?.textContent.replace(/\s+/g, " ").trim();
-    if (!breadcrumbs || breadcrumbText === expectedText) return;
+    if (!breadcrumbs || (breadcrumbText === expectedText &&
+      breadcrumbs.querySelectorAll("a[href]").length >= (currentLabel ? 3 : 2))) return;
     breadcrumbs.replaceChildren();
 
-    const workspaceLink = document.createElement("a");
-    workspaceLink.href = workspacePath;
-    workspaceLink.textContent = "Organisation structure";
-    const separator = document.createTextNode("  ");
-    const current = document.createElement("span");
-    current.textContent = label;
-    breadcrumbs.append(workspaceLink, separator, current);
+    const makeBreadcrumbLink = (href, text) => {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = href;
+      link.textContent = text;
+      link.style.cursor = "pointer";
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (window.frappe?.set_route) {
+          window.frappe.set_route(href.replace(/^\/app\//, ""));
+        } else {
+          window.location.assign(href);
+        }
+      });
+      item.append(link);
+      return item;
+    };
+
+    breadcrumbs.append(
+      makeBreadcrumbLink(workspacePath, "Organisation structure"),
+      makeBreadcrumbLink(destinationPath || path, label),
+    );
+    if (currentLabel) breadcrumbs.append(makeBreadcrumbLink(path, currentLabel));
   }
+
+  // Frappe renders the current breadcrumb as text on unsaved forms.  Handle
+  // every Organisation Structure destination here as well, without depending
+  // on a prior workspace visit or on Frappe's breadcrumb markup.
+  document.addEventListener("click", (event) => {
+    const breadcrumbs = event.target.closest("#navbar-breadcrumbs, .navbar-breadcrumbs");
+    if (!breadcrumbs) return;
+
+    const element = event.target.closest("a, span, li") || event.target;
+    const clickedLabel = element.textContent.replace(/\s+/g, " ").trim();
+    const destination = Object.entries(destinations).find(([, label]) => label === clickedLabel);
+    if (!destination) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.location.assign(destination[0]);
+  }, true);
 
   document.addEventListener("click", saveContext, true);
   const scheduleUpdate = () => window.setTimeout(updateBreadcrumb, 0);

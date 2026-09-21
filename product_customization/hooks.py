@@ -27,8 +27,7 @@ app_license = "mit"
 # include js, css files in header of desk.html
 app_include_css = ["/assets/product_customization/css/product_customization.css?v=20260908_01"]
 app_include_js = [
-    "/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260908_01",
-    "/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260907_03",
+    "/assets/product_customization/js/product_theme_loader_20260629_5.js?v=20260912_01",
     "/assets/product_customization/js/zupra_about.js?v=20260826_01",
     "/assets/product_customization/js/plant_label.js?v=20260903_01",
 ]
@@ -63,16 +62,7 @@ web_include_css = ["/assets/product_customization/css/login_theme.css?v=20260902
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Plant Floor": "public/js/plant_floor.js"}
-
-doc_events = {
-	"Plant Floor": {
-		"after_insert": "product_customization.events.plant_floor.sync_warehouse_plants",
-		"on_update": "product_customization.events.plant_floor.sync_warehouse_plants",
-		"on_trash": "product_customization.events.plant_floor.clear_warehouse_plants",
-	}
-}
-
+# doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
