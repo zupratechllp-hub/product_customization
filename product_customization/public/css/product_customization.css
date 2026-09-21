@@ -1846,6 +1846,7 @@ body.custom-quotation-list-page .frappe-list > .no-result {
   gap: 8px !important;
   z-index: 10 !important;
   height: auto !important;
+  pointer-events: auto !important;
   white-space: nowrap !important;
 }
 
@@ -1862,6 +1863,7 @@ body.custom-quotation-list-page .frappe-list > .no-result {
   font-size: 13px !important;
   font-weight: 500 !important;
   opacity: 1 !important;
+  pointer-events: auto !important;
   text-decoration: none !important;
 }
 

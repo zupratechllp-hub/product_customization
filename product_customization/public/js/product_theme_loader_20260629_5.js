@@ -301,23 +301,6 @@
     if (currentLabel) breadcrumbs.append(makeBreadcrumbLink(path, currentLabel));
   }
 
-  // Frappe renders the current breadcrumb as text on unsaved forms.  Handle
-  // every Organisation Structure destination here as well, without depending
-  // on a prior workspace visit or on Frappe's breadcrumb markup.
-  document.addEventListener("click", (event) => {
-    const breadcrumbs = event.target.closest("#navbar-breadcrumbs, .navbar-breadcrumbs");
-    if (!breadcrumbs) return;
-
-    const element = event.target.closest("a, span, li") || event.target;
-    const clickedLabel = element.textContent.replace(/\s+/g, " ").trim();
-    const destination = Object.entries(destinations).find(([, label]) => label === clickedLabel);
-    if (!destination) return;
-
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    window.location.assign(destination[0]);
-  }, true);
-
   document.addEventListener("click", saveContext, true);
   const scheduleUpdate = () => window.setTimeout(updateBreadcrumb, 0);
   window.frappe?.router?.on?.("change", scheduleUpdate);
