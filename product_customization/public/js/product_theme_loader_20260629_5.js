@@ -296,7 +296,7 @@
   // Some Desk navbar layouts put a transparent element above the breadcrumb
   // text. Resolve the visible link by its click coordinates so the intended
   // route still works even when that happens.
-  document.addEventListener("click", (event) => {
+  window.addEventListener("click", (event) => {
     if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey) return;
 
     const breadcrumbs = document.querySelector('[data-zupra-organisation-breadcrumb="true"]');
