@@ -274,6 +274,7 @@
     if (!breadcrumbs || (breadcrumbText === expectedText &&
       breadcrumbs.querySelectorAll("a[href]").length >= (currentLabel ? 3 : 2))) return;
     breadcrumbs.replaceChildren();
+    breadcrumbs.dataset.zupraOrganisationBreadcrumb = "true";
 
     const makeBreadcrumbLink = (href, text) => {
       const item = document.createElement("li");
@@ -291,6 +292,27 @@
     );
     if (currentLabel) breadcrumbs.append(makeBreadcrumbLink(path, currentLabel));
   }
+
+  // Some Desk navbar layouts put a transparent element above the breadcrumb
+  // text. Resolve the visible link by its click coordinates so the intended
+  // route still works even when that happens.
+  document.addEventListener("click", (event) => {
+    if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+    const breadcrumbs = document.querySelector('[data-zupra-organisation-breadcrumb="true"]');
+    if (!breadcrumbs) return;
+
+    const link = Array.from(breadcrumbs.querySelectorAll("a[href]")).find((candidate) => {
+      const bounds = candidate.getBoundingClientRect();
+      return event.clientX >= bounds.left && event.clientX <= bounds.right &&
+        event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+    });
+    if (!link) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.location.assign(link.href);
+  }, true);
 
   document.addEventListener("click", saveContext, true);
   const scheduleUpdate = () => window.setTimeout(updateBreadcrumb, 0);
